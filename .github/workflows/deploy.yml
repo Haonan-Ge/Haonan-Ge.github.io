@@ -94,7 +94,7 @@ jobs:
           pip3 install --upgrade nbconvert
           # 新增下面这行：强制安装 Gemfile 中的所有依赖（包括 toc 插件）
           bundle install
-          export JEKYLL_ENV=production
+          export JEKYLL_ENV=development
           bundle exec jekyll build
 #      - name: Purge unused CSS 🧹
 #        run: |
