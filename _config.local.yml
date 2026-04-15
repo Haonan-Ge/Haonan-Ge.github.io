@@ -1,4 +1,0 @@
-# Local override for development builds.
-# This avoids network timeouts from external blog RSS sources.
-external_sources: []
-livereload: false
