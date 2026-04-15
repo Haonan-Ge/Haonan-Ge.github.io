@@ -92,6 +92,8 @@ jobs:
         run: |
           sudo apt-get update && sudo apt-get install -y imagemagick
           pip3 install --upgrade nbconvert
+          # 新增下面这行：强制安装 Gemfile 中的所有依赖（包括 toc 插件）
+          bundle install
           export JEKYLL_ENV=production
           bundle exec jekyll build
       - name: Purge unused CSS 🧹
