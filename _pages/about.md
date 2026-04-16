@@ -33,7 +33,7 @@ latest_posts:
     I currently work as a Research Intern with <a href="https://www.ucmerced.edu/">UC Merced</a><img src="/assets/img/ucm.png" alt="icon" style="height: 1.3em; width: auto; margin-left: 0.2em; vertical-align: -0.15em;"> and
     <a href="https://www.uq.edu.au/">The University of Queensland</a><img src="/assets/img/uq.png" alt="icon" style="height: 1.3em; width: auto; margin-left: 0.2em; vertical-align: -0.15em;">, advised by
     <a href="https://vanoracai.github.io/">Prof. Yujun Cai</a> (UQ) and
-    <a href="https://wangywust.github.io/">Prof. Yiwei Wang</a> (UC Merced)<img src="/assets/img/ucm.png" alt="icon" style="height: 1.3em; width: auto; margin-left: 0.2em; vertical-align: -0.15em;">, and I collaborate with
+    <a href="https://wangywust.github.io/">Prof. Yiwei Wang</a> (UC Merced), and I collaborate with
     <a href="https://web.cs.ucla.edu/~kwchang/">Prof. Kai-Wei Chang</a> (UCLA)<img src="/assets/img/ucla.png" alt="icon" style="height: 1.3em; width: auto; margin-left: 0.2em; vertical-align: -0.15em;"> and
     <a href="https://faculty.ucmerced.edu/mhyang/">Prof. Ming-Hsuan Yang</a> (UC Merced)<img src="/assets/img/ucm.png" alt="icon" style="height: 1.3em; width: auto; margin-left: 0.2em; vertical-align: -0.15em;">.
   </p>
