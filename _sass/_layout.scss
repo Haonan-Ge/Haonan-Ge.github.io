@@ -1009,9 +1009,9 @@ body.homepage {
     width: min(340px, 86vw);
     padding: 4px;
     border-radius: 0;
-    border: 3px solid #1f4a78;
+    border: 2px solid #234f88;
     background: #e8edf0;
-    box-shadow: 4px 4px 0 rgba(18, 52, 97, 0.72);
+    box-shadow: 4px 4px 0 #234f88;
     position: relative;
     overflow: hidden;
     min-height: 190px;
@@ -1328,9 +1328,9 @@ html[data-theme="dark"] {
     }
 
     .visitor-map-inner {
-      border-color: #3e6fa3;
+      border-color: #4c78b2;
       background: #1f2b31;
-      box-shadow: 4px 4px 0 rgba(20, 52, 92, 0.78);
+      box-shadow: 4px 4px 0 #4c78b2;
     }
 
     .copyright p {
