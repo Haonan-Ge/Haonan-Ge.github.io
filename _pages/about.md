@@ -25,7 +25,7 @@ latest_posts:
 <section class="home-hero">
   <p class="hero-kicker">Haonan Ge · 葛浩南</p>
   <p class="hero-lead">
-    I am an incoming CS Ph.D. student at <a href="https://www.ucsb.edu/">University of California, Santa Barbara (UCSB)</a><img src="/assets/img/ucsb.png" alt="icon" style="height: 1.2em; vertical-align: -0.15em; margin-left: 4px;">,
+    I am an incoming CS Ph.D. student at <a href="https://www.ucsb.edu/">University of California, Santa Barbara (UCSB)</a><img src="/assets/img/ucsb.png" alt="icon">,
     advised by <a href="https://yaoqin1.github.io/#about">Prof. Yao Qin</a>. I am also a senior undergraduate student in Electrical
     and Computer Engineering at <a href="https://www.seu.edu.cn/english/">Southeast University</a>.
   </p>
