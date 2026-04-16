@@ -56,13 +56,3 @@ $back-to-top-right: 30px;
 $back-to-top-diameter: 40px;
 $back-to-top-height: $back-to-top-diameter;
 $back-to-top-width: $back-to-top-diameter;
-
-/*******************************************************************************
- * Typography (添加这段来覆盖默认字体)
- ******************************************************************************/
-// 这里定义你想要的无衬线字体列表
-$font-family-sans-serif: 'Lato', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !default;
-
-// 强制让基础字体和标题都使用这个列表
-$font-family-base:       $font-family-sans-serif !default;
-$headings-font-family:   $font-family-sans-serif !default;
