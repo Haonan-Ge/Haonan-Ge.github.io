@@ -34,8 +34,8 @@ latest_posts:
     <a href="https://www.uq.edu.au/">The University of Queensland</a><img src="/assets/img/uq.png" alt="icon"  style="height: 1.3em; width: auto; margin-left: 0.2em; position: relative; top: 0.3em;">, advised by
     <a href="https://vanoracai.github.io/">Prof. Yujun Cai</a> (UQ) and
     <a href="https://wangywust.github.io/">Prof. Yiwei Wang</a> (UC Merced), and I collaborate with
-    <a href="https://web.cs.ucla.edu/~kwchang/">Prof. Kai-Wei Chang</a> (UCLA) and
-    <a href="https://faculty.ucmerced.edu/mhyang/">Prof. Ming-Hsuan Yang</a> (UC Merced).
+    <a href="https://web.cs.ucla.edu/~kwchang/">Prof. Kai-Wei Chang</a> (UCLA)<img src="/assets/img/ucla.png" alt="icon"  style="height: 1.3em; width: auto; margin-left: 0.2em; position: relative; top: 0.3em;"> and
+    <a href="https://faculty.ucmerced.edu/mhyang/">Prof. Ming-Hsuan Yang</a> (UC Merced)<img src="/assets/img/ucm.png" alt="icon"  style="height: 1.3em; width: auto; margin-left: 0.2em; position: relative; top: 0.3em;">.
   </p>
   <div class="hero-meta-row">
     <div class="hero-tags">
