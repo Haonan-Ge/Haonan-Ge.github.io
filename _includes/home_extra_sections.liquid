@@ -41,19 +41,120 @@
       You can find some works on <a href="https://unsplash.com/" target="_blank" rel="noopener noreferrer">Unsplash</a>
       and my <a href="#" aria-label="HDR photo gallery">HDR photo gallery</a>.
     </p>
-    <div class="misc-gallery-frame" aria-label="Photography gallery">
-      <div class="misc-gallery">
-        <img src="/assets/img/1.jpg" alt="Photo 1" loading="lazy">
-        <img src="/assets/img/2.jpg" alt="Photo 2" loading="lazy">
-        <img src="/assets/img/3.jpg" alt="Photo 3" loading="lazy">
-        <img src="/assets/img/4.jpg" alt="Photo 4" loading="lazy">
-        <img src="/assets/img/5.jpg" alt="Photo 5" loading="lazy">
-        <img src="/assets/img/6.jpg" alt="Photo 6" loading="lazy">
-        <img src="/assets/img/7.jpg" alt="Photo 7" loading="lazy">
-        <img src="/assets/img/8.jpg" alt="Photo 8" loading="lazy">
-        <img src="/assets/img/9.jpg" alt="Photo 9" loading="lazy">
-        <img src="/assets/img/10.jpg" alt="Photo 10" loading="lazy">
-      </div>
+  <div class="misc-gallery-frame" aria-label="Photography gallery">
+    <div class="misc-gallery misc-gallery--smart">
+      <figure class="misc-tile"><img src="/assets/img/1.jpg" alt="Photo 1" loading="lazy"></figure>
+      <figure class="misc-tile"><img src="/assets/img/2.jpg" alt="Photo 2" loading="lazy"></figure>
+      <figure class="misc-tile"><img src="/assets/img/3.jpg" alt="Photo 3" loading="lazy"></figure>
+      <figure class="misc-tile"><img src="/assets/img/4.jpg" alt="Photo 4" loading="lazy"></figure>
+      <figure class="misc-tile"><img src="/assets/img/5.jpg" alt="Photo 5" loading="lazy"></figure>
+      <figure class="misc-tile"><img src="/assets/img/6.jpg" alt="Photo 6" loading="lazy"></figure>
+      <figure class="misc-tile"><img src="/assets/img/7.jpg" alt="Photo 7" loading="lazy"></figure>
+      <figure class="misc-tile"><img src="/assets/img/8.jpg" alt="Photo 8" loading="lazy"></figure>
+      <figure class="misc-tile"><img src="/assets/img/9.jpg" alt="Photo 9" loading="lazy"></figure>
+      <figure class="misc-tile"><img src="/assets/img/10.jpg" alt="Photo 10" loading="lazy"></figure>
     </div>
-  </section>
+  </div>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const gallery = document.querySelector(".misc-gallery--smart");
+    if (!gallery) return;
+
+    const tiles = Array.from(gallery.querySelectorAll(".misc-tile"));
+    const gapVar = () => parseFloat(getComputedStyle(gallery).getPropertyValue("--misc-gap")) || 6;
+    let rafId = null;
+
+    const getTargetRowHeight = () => {
+      if (window.innerWidth < 576) return 120;
+      if (window.innerWidth < 992) return 132;
+      return 150;
+    };
+
+    const finalizeRow = (galleryWidth, row, rowAspectSum, isLastRow) => {
+      if (!row.length) return null;
+
+      const gap = gapVar();
+      const availableWidth = galleryWidth - gap * Math.max(0, row.length - 1);
+      const justifiedHeight = availableWidth / rowAspectSum;
+      const targetHeight = getTargetRowHeight();
+      const rowHeight = isLastRow ? Math.min(targetHeight, justifiedHeight) : justifiedHeight;
+
+      const rowElement = document.createElement("div");
+      rowElement.className = "misc-row";
+      rowElement.style.height = `${rowHeight}px`;
+
+      row.forEach((tile) => {
+        const ratio = parseFloat(tile.dataset.ratio || "1");
+        tile.style.width = `${rowHeight * ratio}px`;
+        tile.style.height = `${rowHeight}px`;
+        rowElement.appendChild(tile);
+      });
+
+      return rowElement;
+    };
+
+    const renderGallery = () => {
+      const galleryWidth = gallery.clientWidth;
+      if (!galleryWidth) return;
+
+      const readyTiles = tiles.filter((tile) => {
+        const image = tile.querySelector("img");
+        return image && image.naturalWidth && image.naturalHeight;
+      });
+
+      if (!readyTiles.length) return;
+
+      gallery.innerHTML = "";
+
+      const rowTargetWidth = galleryWidth * 0.98;
+      let row = [];
+      let rowAspectSum = 0;
+
+      readyTiles.forEach((tile, index) => {
+        const ratio = parseFloat(tile.dataset.ratio || "1");
+        row.push(tile);
+        rowAspectSum += ratio;
+
+        const estimatedWidth = rowAspectSum * getTargetRowHeight() + gapVar() * Math.max(0, row.length - 1);
+        const shouldFlush = estimatedWidth >= rowTargetWidth;
+        const isLastTile = index === readyTiles.length - 1;
+
+        if (shouldFlush || isLastTile) {
+          const rowElement = finalizeRow(galleryWidth, row, rowAspectSum, isLastTile && !shouldFlush);
+          if (rowElement) gallery.appendChild(rowElement);
+          row = [];
+          rowAspectSum = 0;
+        }
+      });
+    };
+
+    const scheduleRender = () => {
+      window.cancelAnimationFrame(rafId);
+      rafId = window.requestAnimationFrame(renderGallery);
+    };
+
+    tiles.forEach((tile) => {
+      const image = tile.querySelector("img");
+      if (!image) return;
+
+      const measure = () => {
+        if (image.naturalWidth && image.naturalHeight) {
+          tile.dataset.ratio = (image.naturalWidth / image.naturalHeight).toString();
+          scheduleRender();
+        }
+      };
+
+      if (image.complete) {
+        measure();
+      } else {
+        image.addEventListener("load", measure, { once: true });
+      }
+    });
+
+    window.addEventListener("resize", scheduleRender);
+  });
+</script>
+
 
