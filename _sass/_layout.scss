@@ -952,6 +952,58 @@ body.homepage {
     padding-top: 0.9rem;
     border-top: 1px dashed rgba(23, 96, 119, 0.25);
   }
+ .misc-section {
+    margin-top: 1.35rem;
+    padding-top: 0.2rem;
+  }
+
+  .misc-section h3 {
+    margin: 0 0 0.62rem;
+    padding-bottom: 0.48rem;
+    border-bottom: 1px solid rgba(20, 104, 131, 0.2);
+    font-size: 1.25rem;
+    font-family: var(--brand-display-font);
+    font-weight: 700;
+    color: #123f51;
+  }
+
+  .misc-prompt {
+    color: #2b8d52;
+    margin-right: 0.18rem;
+  }
+
+  .misc-lead {
+    margin: 0 0 0.78rem;
+    line-height: 1.7;
+    font-size: 0.98rem;
+    color: #2a3f49;
+  }
+
+  .misc-lead i {
+    color: #1f7a98;
+    margin-right: 0.35rem;
+  }
+
+  .misc-gallery {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.42rem;
+  }
+
+  .misc-gallery img {
+    width: 100%;
+    height: 118px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid rgba(20, 104, 131, 0.2);
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  }
+
+  .misc-gallery img:hover {
+    transform: translateY(-2px);
+    border-color: rgba(234, 131, 40, 0.4);
+    box-shadow: 0 8px 16px rgba(16, 46, 56, 0.16);
+  }
 
   .visitor-map {
     margin-top: 1.2rem;
@@ -1279,6 +1331,44 @@ html[data-theme="dark"] {
     .social {
       border-top-color: rgba(110, 178, 201, 0.27);
     }
+    .misc-section h3 {
+      color: #ccecf8;
+      border-bottom-color: rgba(109, 186, 209, 0.22);
+    }
+
+    .misc-prompt {
+      color: #74c795;
+    }
+
+    .misc-lead {
+      color: #b4cbd4;
+    }
+
+    .misc-lead i {
+      color: #86cbe3;
+    }
+
+    .misc-gallery img {
+      border-color: rgba(109, 186, 209, 0.28);
+    }
+
+    .misc-gallery img:hover {
+      border-color: rgba(255, 191, 131, 0.45);
+      box-shadow: 0 8px 16px rgba(4, 14, 18, 0.34);
+    }
+
+    .visitor-map-inner {
+      border-color: rgba(109, 186, 209, 0.28);
+      background:
+        radial-gradient(circle at 18% 22%, rgba(75, 145, 170, 0.3), rgba(75, 145, 170, 0) 42%),
+        radial-gradient(circle at 84% 78%, rgba(204, 153, 85, 0.24), rgba(204, 153, 85, 0) 36%),
+        linear-gradient(130deg, rgba(17, 30, 36, 0.94), rgba(15, 26, 31, 0.92));
+      box-shadow: 0 10px 26px rgba(8, 20, 25, 0.34);
+    }
+
+    .visitor-map-inner::before {
+      border-color: rgba(131, 205, 228, 0.32);
+    }
 
     .copyright p {
       color: #95aab3;
@@ -1352,7 +1442,17 @@ html[data-theme="dark"] body.homepage {
     }
   }
 }
+    .misc-gallery {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
 
+    .misc-gallery img {
+      height: 104px;
+    }
+
+    .visitor-map-inner {
+      padding: 0.5rem;
+    }
 // TODO: redefine content layout.
 
 /******************************************************************************
