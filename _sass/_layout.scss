@@ -952,6 +952,7 @@ body.homepage {
     padding-top: 0.9rem;
     border-top: 1px dashed rgba(23, 96, 119, 0.25);
   }
+
   .misc-section {
     margin-top: 1.35rem;
     padding-top: 0.2rem;
@@ -986,7 +987,7 @@ body.homepage {
     display: grid !important;
     grid-template-columns: repeat(5, minmax(0, 1fr));
     grid-auto-rows: 138px;
-    gap: 0.42rem;
+    gap: 0;
     width: 100%;
   }
 
@@ -994,15 +995,8 @@ body.homepage {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 8px;
-    border: 1px solid rgba(20, 104, 131, 0.2);
-    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
-  }
-
-  .misc-gallery img:hover {
-    transform: translateY(-2px);
-    border-color: rgba(234, 131, 40, 0.4);
-    box-shadow: 0 8px 16px rgba(16, 46, 56, 0.16);
+    border-radius: 0;
+    border: none;
   }
 
   .visitor-map {
@@ -1042,6 +1036,7 @@ body.homepage {
     max-width: 100%;
     border-radius: 0;
   }
+
   .copyright {
     margin-top: 0.7rem;
     text-align: center;
@@ -1323,14 +1318,6 @@ html[data-theme="dark"] {
     .social {
       border-top-color: rgba(110, 178, 201, 0.27);
     }
-    .misc-section h3 {
-      color: #ccecf8;
-      border-bottom-color: rgba(109, 186, 209, 0.22);
-    }
-
-    .misc-prompt {
-      color: #74c795;
-    }
 
     .misc-lead {
       color: #b4cbd4;
@@ -1340,26 +1327,10 @@ html[data-theme="dark"] {
       color: #86cbe3;
     }
 
-    .misc-gallery img {
-      border-color: rgba(109, 186, 209, 0.28);
-    }
-
-    .misc-gallery img:hover {
-      border-color: rgba(255, 191, 131, 0.45);
-      box-shadow: 0 8px 16px rgba(4, 14, 18, 0.34);
-    }
-
     .visitor-map-inner {
-      border-color: rgba(109, 186, 209, 0.28);
-      background:
-        radial-gradient(circle at 18% 22%, rgba(75, 145, 170, 0.3), rgba(75, 145, 170, 0) 42%),
-        radial-gradient(circle at 84% 78%, rgba(204, 153, 85, 0.24), rgba(204, 153, 85, 0) 36%),
-        linear-gradient(130deg, rgba(17, 30, 36, 0.94), rgba(15, 26, 31, 0.92));
-      box-shadow: 0 10px 26px rgba(8, 20, 25, 0.34);
-    }
-
-    .visitor-map-inner::before {
-      border-color: rgba(131, 205, 228, 0.32);
+      border-color: #3e6fa3;
+      background: #1f2b31;
+      box-shadow: 4px 4px 0 rgba(20, 52, 92, 0.78);
     }
 
     .copyright p {
@@ -1432,19 +1403,22 @@ html[data-theme="dark"] body.homepage {
         width: 36%;
       }
     }
-  }
-}
+
     .misc-gallery {
       grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-auto-rows: 102px;
     }
 
-    .misc-gallery img {
-      height: 104px;
+    .misc-gallery-frame {
+      height: auto;
     }
 
     .visitor-map-inner {
       padding: 0.5rem;
     }
+  }
+}
+
 // TODO: redefine content layout.
 
 /******************************************************************************
