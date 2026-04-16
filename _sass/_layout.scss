@@ -954,13 +954,48 @@ body.homepage {
   }
 
   .visitor-map {
-    margin-top: 1rem;
+    margin-top: 1.2rem;
     display: flex;
     justify-content: center;
   }
 
   .visitor-map-inner {
-    width: min(190px, 45vw);
+    width: min(470px, 95vw);
+    padding: 0.65rem;
+    border-radius: 14px;
+    border: 1px solid rgba(21, 101, 126, 0.26);
+    background:
+      radial-gradient(circle at 18% 22%, rgba(157, 222, 241, 0.3), rgba(157, 222, 241, 0) 44%),
+      radial-gradient(circle at 84% 78%, rgba(247, 208, 116, 0.22), rgba(247, 208, 116, 0) 38%),
+      linear-gradient(135deg, rgba(244, 250, 252, 0.95), rgba(233, 244, 248, 0.92));
+    box-shadow: 0 10px 26px rgba(15, 58, 74, 0.1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .visitor-map-inner::before {
+    content: "";
+    position: absolute;
+    inset: 0.4rem;
+    border: 1px dashed rgba(23, 109, 137, 0.32);
+    border-radius: 10px;
+    pointer-events: none;
+  }
+
+  .visitor-map-inner > div,
+  .visitor-map-inner > iframe,
+  .visitor-map-inner > script + div {
+    position: relative;
+    z-index: 1;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .visitor-map-inner iframe,
+  .visitor-map-inner canvas {
+    width: 100% !important;
+    max-width: 100%;
+    border-radius: 10px;
   }
 
   .copyright {
