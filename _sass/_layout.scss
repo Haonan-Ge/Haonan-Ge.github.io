@@ -952,24 +952,13 @@ body.homepage {
     padding-top: 0.9rem;
     border-top: 1px dashed rgba(23, 96, 119, 0.25);
   }
- .misc-section {
+  .misc-section {
     margin-top: 1.35rem;
     padding-top: 0.2rem;
   }
 
-  .misc-section h3 {
-    margin: 0 0 0.62rem;
-    padding-bottom: 0.48rem;
-    border-bottom: 1px solid rgba(20, 104, 131, 0.2);
-    font-size: 1.25rem;
-    font-family: var(--brand-display-font);
-    font-weight: 700;
-    color: #123f51;
-  }
-
-  .misc-prompt {
-    color: #2b8d52;
-    margin-right: 0.18rem;
+  .misc-section .section-heading {
+    margin-top: 0.15rem;
   }
 
   .misc-lead {
@@ -984,15 +973,42 @@ body.homepage {
     margin-right: 0.35rem;
   }
 
+  .misc-gallery-frame {
+    height: clamp(240px, 35vw, 320px);
+    overflow-y: auto;
+    padding: 0.42rem;
+    border-radius: 12px;
+    border: 1px solid rgba(20, 104, 131, 0.2);
+    background:
+      linear-gradient(130deg, rgba(241, 249, 252, 0.92), rgba(232, 244, 248, 0.9));
+    scrollbar-width: thin;
+    scrollbar-color: rgba(29, 138, 176, 0.48) rgba(20, 104, 131, 0.08);
+  }
+
+  .misc-gallery-frame::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .misc-gallery-frame::-webkit-scrollbar-track {
+    background: rgba(20, 104, 131, 0.08);
+    border-radius: 8px;
+  }
+
+  .misc-gallery-frame::-webkit-scrollbar-thumb {
+    background: rgba(29, 138, 176, 0.48);
+    border-radius: 8px;
+  }
+
   .misc-gallery {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+    grid-auto-rows: 104px;
     gap: 0.42rem;
   }
 
   .misc-gallery img {
     width: 100%;
-    height: 118px;
+    height: 100%;
     object-fit: cover;
     border-radius: 8px;
     border: 1px solid rgba(20, 104, 131, 0.2);
@@ -1004,7 +1020,7 @@ body.homepage {
     border-color: rgba(234, 131, 40, 0.4);
     box-shadow: 0 8px 16px rgba(16, 46, 56, 0.16);
   }
-
+  
   .visitor-map {
     margin-top: 1.2rem;
     display: flex;
