@@ -27,11 +27,11 @@ latest_posts:
   <p class="hero-lead">
     I am an incoming CS Ph.D. student at <a href="https://www.ucsb.edu/">University of California, Santa Barbara (UCSB)</a><img src="/assets/img/ucsb.png" alt="icon"  style="height: 1.3em; width: auto; margin-left: 0.2em; position: relative; top: 0.3em;">
     advised by <a href="https://yaoqin1.github.io/#about">Prof. Yao Qin</a>. I am also a senior undergraduate student in Electrical
-    and Computer Engineering at <a href="https://www.seu.edu.cn/english/">Southeast University</a>.
+    and Computer Engineering at <a href="https://www.seu.edu.cn/english/">Southeast University</a><img src="/assets/img/seu.png" alt="icon"  style="height: 1.3em; width: auto; margin-left: 0.2em; position: relative; top: 0.3em;">.
   </p>
   <p class="hero-lead">
-    I currently work as a Research Intern with <a href="https://www.ucmerced.edu/">UC Merced</a> and
-    <a href="https://www.uq.edu.au/">The University of Queensland</a>, advised by
+    I currently work as a Research Intern with <a href="https://www.ucmerced.edu/">UC Merced</a><img src="/assets/img/ucm.png" alt="icon"  style="height: 1.3em; width: auto; margin-left: 0.2em; position: relative; top: 0.3em;"> and
+    <a href="https://www.uq.edu.au/">The University of Queensland</a><img src="/assets/img/uq.png" alt="icon"  style="height: 1.3em; width: auto; margin-left: 0.2em; position: relative; top: 0.3em;">, advised by
     <a href="https://vanoracai.github.io/">Prof. Yujun Cai</a> (UQ) and
     <a href="https://wangywust.github.io/">Prof. Yiwei Wang</a> (UC Merced), and I collaborate with
     <a href="https://web.cs.ucla.edu/~kwchang/">Prof. Kai-Wei Chang</a> (UCLA) and
@@ -39,7 +39,7 @@ latest_posts:
   </p>
   <div class="hero-meta-row">
     <div class="hero-tags">
-      <span>Incoming Ph.D. @ UCSB</span>
+      <span>Incoming CS Ph.D. @ UCSB</span>
       <span>ECE @ Southeast University</span>
     </div>
     {% if page.social %}
