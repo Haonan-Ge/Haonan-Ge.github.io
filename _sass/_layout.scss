@@ -678,6 +678,18 @@ body.homepage {
     animation-delay: 0.7s;
   }
 
+  .service-badge:nth-child(4) {
+    animation-delay: 1.05s;
+  }
+
+  .service-badge:nth-child(5) {
+    animation-delay: 1.4s;
+  }
+
+  .service-badge:nth-child(6) {
+    animation-delay: 1.75s;
+  }
+
   .service-badge--neurips {
     background: linear-gradient(135deg, #4b80c7, #6298dc);
   }
@@ -688,6 +700,14 @@ body.homepage {
 
   .service-badge--wacv {
     background: linear-gradient(135deg, #e8962d, #f0ad52);
+  }
+
+  .service-badge--iclr {
+    background: linear-gradient(135deg, #8367c7, #9d84d6);
+  }
+
+  .service-badge--acmmm {
+    background: linear-gradient(135deg, #cf5a6e, #de7a8b);
   }
 
   .news .table-responsive {
@@ -1186,6 +1206,14 @@ html[data-theme="dark"] {
 
     .service-badge--wacv {
       background: linear-gradient(135deg, #d08a2d, #e4a14d);
+    }
+
+    .service-badge--iclr {
+      background: linear-gradient(135deg, #7560b3, #8b74c6);
+    }
+
+    .service-badge--acmmm {
+      background: linear-gradient(135deg, #b8505f, #cc6a79);
     }
 
     .experience-strip h3,
