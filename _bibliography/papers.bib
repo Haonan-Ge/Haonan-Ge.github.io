@@ -1,5 +1,17 @@
 ---
 ---
+@inproceedings{ge2026streamingvideomodelremember,
+      title={What Should a Streaming Video Model Remember?},
+      author={Haonan Ge and Yiwei Wang and Hang Wu and Yujun Cai},
+      booktitle={NeurIPS},
+      year={2026},
+      url={https://arxiv.org/abs/2606.16353},
+      selected={true},
+      abbr         = {NeurIPS},
+      arxiv        = {2606.16353},
+      abstract={Streaming video understanding models must answer queries at any moment during an ongoing stream, using only what they have observed so far and under fixed memory and computation budgets. Existing methods address this by adding memory banks, retrieval modules, or visual token compression to preserve long-range history. However, strong recent-window baselines show that indiscriminate history injection can dilute current-scene perception, suggesting that the key challenge is not whether to use memory, but how to allocate it selectively. We formulate this as budgeted online latent evidence allocation and propose SelectStream, a selective latent-memory framework that keeps the current observation directly visible to a frozen VLM while exposing historical information only through a compact, query-conditioned evidence budget. Three coordinated mechanisms govern when to write, what to preserve, and how to retrieve: surprise-driven adaptive windowing, priority-preserving consolidation, and query-conditioned graph reasoning over a fixed-capacity latent memory graph. Retrieved evidence is calibrated and injected as latent tokens for answer generation, without replaying frames or growing the context with stream length. Experimental results show that SelectStream achieves strong online streaming performance and preserves general video understanding, reaching 82.67\% on StreamingBench, 67.03\% on OVO-Bench, and 74.4\% average accuracy on offline video benchmarks, while outperforming strong recent-window baselines and prior streaming memory methods.},
+      pdf          = {https://arxiv.org/pdf/2606.16353}
+}
 @inproceedings{wu2026camreasonerreinforcingcameramovement,
       title={CamReasoner: Reinforcing Camera Movement Understanding via Structured Spatial Reasoning}, 
       author={Hang Wu and Yujun Cai and Zehao Li and Haonan Ge and Bowen Sun and Junsong Yuan and Yiwei Wang},
