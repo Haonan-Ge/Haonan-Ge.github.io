@@ -6,7 +6,7 @@ title: blank # the website title (if blank, full name will be used instead)
 first_name: Haonan
 middle_name:
 last_name: Ge
-description: > # the ">" symbol means to ignore newlines until "footer_text:"
+description: >- # the ">" symbol means to ignore newlines until "footer_text:"
   Haonan Ge (葛浩南) is a Computer Science Ph.D. student at the University of California, Santa Barbara (UCSB),
   working on multimodal large language models, video understanding, multimodal reasoning, and agentic AI.
 footer_text: >
