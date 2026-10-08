@@ -7,10 +7,9 @@ profile:
   align: right
   image: johnny.jpg
   image_circular: false # crops the image to make it circular
-  more_info: <p class="photo-note"></p>
 
 selected_papers: true # includes a list of papers marked as "selected={true}"
-social: true # includes social icons at the bottom of the page
+social: false # contact links are written into the bio instead
 
 announcements:
   enabled: true # includes a list of news items
@@ -22,61 +21,45 @@ latest_posts:
   scrollable: true # adds a vertical scroll bar if there are more than 3 new posts items
   limit: 3 # leave blank to include all the blog posts
 ---
-<section class="home-hero">
-  <p class="hero-kicker">Haonan Ge · 葛浩南</p>
-  <p class="hero-lead">
-    I am a CS Ph.D. student at <a href="https://www.ucsb.edu/">University of California, Santa Barbara (UCSB)</a><img src="/assets/img/ucsb.png" alt="icon" style="height: 1.3em; width: auto; margin-left: 0.2em; vertical-align: -0.15em;">,
-    advised by <a href="https://yaoqin1.github.io/#about">Prof. Yao Qin</a>. I received my bachelor's degree in Electrical
-    and Computer Engineering from <a href="https://www.seu.edu.cn/english/">Southeast University</a><img src="/assets/img/seu.png" alt="icon" style="height: 1.3em; width: auto; margin-left: 0.2em; vertical-align: -0.15em;">.
+<section class="home-bio">
+  <p>
+    I am a CS Ph.D. student at the <a href="https://www.ucsb.edu/">University of California, Santa Barbara</a>, advised by
+    <a href="https://yaoqin1.github.io/#about">Prof. Yao Qin</a>. I received my bachelor's degree in Electrical and Computer
+    Engineering from <a href="https://www.seu.edu.cn/english/">Southeast University</a>.
   </p>
-  <p class="hero-lead">
-    Before joining UCSB, I was a Research Intern with <a href="https://www.ucmerced.edu/">UC Merced</a><img src="/assets/img/ucm.png" alt="icon" style="height: 1.3em; width: auto; margin-left: 0.2em; vertical-align: -0.15em;"> and
-    <a href="https://www.uq.edu.au/">The University of Queensland</a><img src="/assets/img/uq.png" alt="icon" style="height: 1.3em; width: auto; margin-left: 0.2em; vertical-align: -0.15em;">, advised by
-    <a href="https://vanoracai.github.io/">Prof. Yujun Cai</a> (UQ) and
-    <a href="https://wangywust.github.io/">Prof. Yiwei Wang</a> (UC Merced), and I continue to collaborate with them as well as
-    <a href="https://web.cs.ucla.edu/~kwchang/">Prof. Kai-Wei Chang</a> (UCLA)<img src="/assets/img/ucla.png" alt="icon" style="height: 1.3em; width: auto; margin-left: 0.2em; vertical-align: -0.15em;"> and
-    <a href="https://faculty.ucmerced.edu/mhyang/">Prof. Ming-Hsuan Yang</a> (UC Merced)<img src="/assets/img/ucm.png" alt="icon" style="height: 1.3em; width: auto; margin-left: 0.2em; vertical-align: -0.15em;">.
+  <p>
+    Before joining UCSB, I was a Research Intern with <a href="https://www.ucmerced.edu/">UC Merced</a> and
+    <a href="https://www.uq.edu.au/">The University of Queensland</a>, advised by
+    <a href="https://vanoracai.github.io/">Prof. Yujun Cai</a> (UQ) and <a href="https://wangywust.github.io/">Prof. Yiwei Wang</a>
+    (UC Merced), and I continue to collaborate with them as well as
+    <a href="https://web.cs.ucla.edu/~kwchang/">Prof. Kai-Wei Chang</a> (UCLA) and
+    <a href="https://faculty.ucmerced.edu/mhyang/">Prof. Ming-Hsuan Yang</a> (UC Merced).
   </p>
-  <div class="hero-meta-row">
-    <div class="hero-tags">
-      <span>CS Ph.D. @ UCSB</span>
-      <span>B.S. ECE @ Southeast University</span>
-    </div>
-    {% if page.social %}
-      <div class="hero-social">
-        <div class="contact-icons">{% include social.liquid %}</div>
-      </div>
-    {% endif %}
-  </div>
+  <p class="home-links">
+    <a href="mailto:haonange@ucsb.edu">Email</a><span class="sep">/</span><a href="/assets/pdf/CV.pdf">CV</a><span class="sep">/</span><a href="https://scholar.google.com/citations?user={{ site.data.socials.scholar_userid }}">Google Scholar</a><span class="sep">/</span><a href="https://github.com/{{ site.data.socials.github_username }}">GitHub</a><span class="sep">/</span><a href="https://www.linkedin.com/in/{{ site.data.socials.linkedin_username }}">LinkedIn</a>
+  </p>
+  <p class="home-email">haonange@ucsb.edu · gehaonan82@gmail.com</p>
 </section>
 
-<section class="research-interest">
-  <h3>Research Interests</h3>
-  <div class="interest-list">
-    <article class="interest-item">
-      <h4>Faithful Multimodal Intelligence and World Modeling</h4>
-      <p>
-        I build multimodal models that learn physical laws and world dynamics from large-scale unlabeled video, grounding decisions in
-        perceptual evidence rather than language priors.
-      </p>
-    </article>
-    <article class="interest-item">
-      <h4>Scalable Multimodal Action Reasoning and Agents</h4>
-      <p>
-        I study controllable systems that integrate images, video, audio, and actions, aiming for practical agentic tools for creative
-        workflows like filmmaking and design.
-      </p>
-    </article>
-  </div>
-</section>
-
-<p class="opportunity-callout">
+<p class="home-note">
   I am always open to research collaborations. Students interested in a research internship with me are also very welcome —
   feel free to reach out by email anytime!
 </p>
 
-<div class="contact-strip">
-  <a class="contact-link" href="mailto:haonange@ucsb.edu">haonange@ucsb.edu</a>
-  <a class="contact-link" href="mailto:gehaonan82@gmail.com">gehaonan82@gmail.com</a>
-  <a class="cv-btn" href="/assets/pdf/CV.pdf">Download CV (2026.10)</a>
+<h2 class="section-heading">Research Interests</h2>
+<div class="interests">
+  <div>
+    <h3>Faithful Multimodal Intelligence and World Modeling</h3>
+    <p>
+      I build multimodal models that learn physical laws and world dynamics from large-scale unlabeled video, grounding decisions in
+      perceptual evidence rather than language priors.
+    </p>
+  </div>
+  <div>
+    <h3>Scalable Multimodal Action Reasoning and Agents</h3>
+    <p>
+      I study controllable systems that integrate images, video, audio, and actions, aiming for practical agentic tools for creative
+      workflows like filmmaking and design.
+    </p>
+  </div>
 </div>

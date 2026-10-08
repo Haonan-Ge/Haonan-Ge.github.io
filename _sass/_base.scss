@@ -743,17 +743,20 @@ footer.sticky-bottom {
 
         abbr {
           display: inline-block;
-          background: var(--brand-badge-gradient);
+          background: var(--home-accent-soft);
           margin-bottom: 0.5rem;
-          color: var(--global-card-bg-color) !important;
+          color: var(--global-theme-color) !important;
           border: none;
-          box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.02), 0 0 0 2px rgba(255, 255, 255, 0.18) inset;
-          /* Optional accent ring from _data/venues.yml */
-          outline: 1px solid var(--venue-accent, rgba(0, 0, 0, 0));
-          outline-offset: 0;
+          border-radius: 3px;
+          box-shadow: none;
+          font-family: var(--home-sans);
+          font-size: 0.7rem;
+          font-weight: 600;
+          letter-spacing: 0.04em;
+          padding: 0.3em 0.5em;
 
           a {
-            color: white;
+            color: inherit;
 
             &:hover {
               text-decoration: none;
@@ -767,23 +770,37 @@ footer.sticky-bottom {
         }
       }
 
+      .preview {
+        border: 1px solid var(--global-divider-color);
+        box-shadow: none !important;
+        border-radius: 4px !important;
+        background: #ffffff;
+      }
+
       .title {
-        font-weight: bolder;
+        font-weight: 600;
+        line-height: 1.45;
+        margin-bottom: 0.15rem;
       }
 
       .author {
+        color: var(--global-text-color-light);
+
         a {
-          border-bottom: 1px dashed var(--global-theme-color);
+          color: inherit;
+          border-bottom: none;
 
           &:hover {
-            border-bottom-style: solid;
+            color: var(--global-theme-color);
             text-decoration: none;
           }
         }
 
         > em {
-          border-bottom: 1px solid;
+          border-bottom: none;
           font-style: normal;
+          font-weight: 600;
+          color: var(--global-text-color);
         }
 
         > span.more-authors {
@@ -799,18 +816,24 @@ footer.sticky-bottom {
       }
 
       .links {
+        margin-top: 0.35rem;
+
         a.btn {
-          color: var(--global-text-color);
-          border: 1px solid var(--global-text-color);
-          padding-left: 1rem;
-          padding-right: 1rem;
-          padding-top: 0.25rem;
-          padding-bottom: 0.25rem;
-          margin-left: 0;
+          color: var(--global-theme-color);
+          border: none;
+          border-radius: 0;
+          padding: 0;
+          margin: 0 1.1rem 0 0;
+          font-family: var(--home-sans);
+          font-size: 0.74rem;
+          font-weight: 600;
+          letter-spacing: 0.04em;
+          box-shadow: none;
 
           &:hover {
-            color: var(--global-theme-color);
-            border-color: var(--global-theme-color);
+            color: var(--global-hover-color);
+            text-decoration: underline;
+            text-underline-offset: 2px;
           }
         }
         a.award.btn {
