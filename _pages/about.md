@@ -78,5 +78,5 @@ latest_posts:
 <div class="contact-strip">
   <a class="contact-link" href="mailto:haonange@ucsb.edu">haonange@ucsb.edu</a>
   <a class="contact-link" href="mailto:gehaonan82@gmail.com">gehaonan82@gmail.com</a>
-  <a class="cv-btn" href="/assets/pdf/CV.pdf">Download CV (2026.09)</a>
+  <a class="cv-btn" href="/assets/pdf/CV.pdf">Download CV (2026.10)</a>
 </div>
