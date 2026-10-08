@@ -23,17 +23,17 @@ latest_posts:
 ---
 <section class="home-bio">
   <p>
-    I am a CS Ph.D. student at the <a href="https://www.ucsb.edu/">University of California, Santa Barbara</a>, advised by
+    I am a CS Ph.D. student at the <a href="https://www.ucsb.edu/">University of California, Santa Barbara</a><img class="inst-logo" src="/assets/img/ucsb.png" alt="">, advised by
     <a href="https://yaoqin1.github.io/#about">Prof. Yao Qin</a>. I received my bachelor's degree in Electrical and Computer
-    Engineering from <a href="https://www.seu.edu.cn/english/">Southeast University</a>.
+    Engineering from <a href="https://www.seu.edu.cn/english/">Southeast University</a><img class="inst-logo" src="/assets/img/seu.png" alt="">.
   </p>
   <p>
-    Before joining UCSB, I was a Research Intern with <a href="https://www.ucmerced.edu/">UC Merced</a> and
-    <a href="https://www.uq.edu.au/">The University of Queensland</a>, advised by
+    Before joining UCSB, I was a Research Intern with <a href="https://www.ucmerced.edu/">UC Merced</a><img class="inst-logo" src="/assets/img/ucm.png" alt=""> and
+    <a href="https://www.uq.edu.au/">The University of Queensland</a><img class="inst-logo" src="/assets/img/uq.png" alt="">, advised by
     <a href="https://vanoracai.github.io/">Prof. Yujun Cai</a> (UQ) and <a href="https://wangywust.github.io/">Prof. Yiwei Wang</a>
     (UC Merced), and I continue to collaborate with them as well as
-    <a href="https://web.cs.ucla.edu/~kwchang/">Prof. Kai-Wei Chang</a> (UCLA) and
-    <a href="https://faculty.ucmerced.edu/mhyang/">Prof. Ming-Hsuan Yang</a> (UC Merced).
+    <a href="https://web.cs.ucla.edu/~kwchang/">Prof. Kai-Wei Chang</a> (UCLA)<img class="inst-logo" src="/assets/img/ucla.png" alt=""> and
+    <a href="https://faculty.ucmerced.edu/mhyang/">Prof. Ming-Hsuan Yang</a> (UC Merced)<img class="inst-logo" src="/assets/img/ucm.png" alt="">.
   </p>
   <p class="home-links">
     <a href="mailto:haonange@ucsb.edu">Email</a><span class="sep">/</span><a href="/assets/pdf/CV.pdf">CV</a><span class="sep">/</span><a href="https://scholar.google.com/citations?user={{ site.data.socials.scholar_userid }}">Google Scholar</a><span class="sep">/</span><a href="https://github.com/{{ site.data.socials.github_username }}">GitHub</a><span class="sep">/</span><a href="https://www.linkedin.com/in/{{ site.data.socials.linkedin_username }}">LinkedIn</a>
@@ -49,6 +49,7 @@ latest_posts:
 <h2 class="section-heading">Research Interests</h2>
 <div class="interests">
   <div>
+    <span class="interest-num">01</span>
     <h3>Faithful Multimodal Intelligence and World Modeling</h3>
     <p>
       I build multimodal models that learn physical laws and world dynamics from large-scale unlabeled video, grounding decisions in
@@ -56,6 +57,7 @@ latest_posts:
     </p>
   </div>
   <div>
+    <span class="interest-num">02</span>
     <h3>Scalable Multimodal Action Reasoning and Agents</h3>
     <p>
       I study controllable systems that integrate images, video, audio, and actions, aiming for practical agentic tools for creative
