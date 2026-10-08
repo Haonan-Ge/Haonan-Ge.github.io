@@ -105,10 +105,10 @@ body.homepage {
     inset: 0;
     background: linear-gradient(
       90deg,
-      color-mix(in srgb, var(--global-bg-color) 52%, transparent) 0%,
+      color-mix(in srgb, var(--global-bg-color) 72%, transparent) 0%,
       color-mix(in srgb, var(--global-bg-color) 97%, transparent) calc(50% - 500px),
       color-mix(in srgb, var(--global-bg-color) 97%, transparent) calc(50% + 500px),
-      color-mix(in srgb, var(--global-bg-color) 52%, transparent) 100%
+      color-mix(in srgb, var(--global-bg-color) 72%, transparent) 100%
     );
   }
 }
