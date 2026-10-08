@@ -42,8 +42,8 @@ latest_posts:
 </section>
 
 <p class="home-note">
-  I am always open to research collaborations. Students interested in a research internship with me are also very welcome —
-  feel free to reach out by email anytime!
+  I am currently seeking research internship opportunities for <strong>Summer 2027</strong>. I am also always open to research
+  collaborations, and students who would like to intern with me are very welcome. Feel free to reach out by email anytime!
 </p>
 
 <h2 class="section-heading">Research Interests</h2>

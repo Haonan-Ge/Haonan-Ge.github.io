@@ -224,6 +224,11 @@ footer.sticky-bottom {
     border-left: 2px solid var(--home-gold);
     color: var(--global-text-color);
     font-style: italic;
+
+    strong {
+      font-weight: 600;
+      color: var(--global-theme-color);
+    }
   }
 
   .home-float-clear {
