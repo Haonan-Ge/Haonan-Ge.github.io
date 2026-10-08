@@ -43,16 +43,35 @@ body.homepage {
   }
 }
 
-// Navbar: translucent paper over the page photo.
+// Navbar: the campus photo shows clearly; links sit on a white box.
 .navbar {
-  background: color-mix(in srgb, var(--global-bg-color) 80%, transparent) !important;
-  backdrop-filter: blur(8px);
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--global-bg-color) 12%, transparent),
+      color-mix(in srgb, var(--global-bg-color) 6%, transparent) 42%,
+      color-mix(in srgb, var(--global-bg-color) 22%, transparent)
+    ),
+    url("/assets/img/ucsb-hero.jpg") center 30% / cover no-repeat !important;
   border-bottom: 1px solid var(--global-divider-color);
   box-shadow: none;
 
   .navbar-brand {
     font-family: var(--home-serif);
     font-weight: 600;
+    background: color-mix(in srgb, var(--global-bg-color) 90%, transparent);
+    border-radius: 10px;
+    padding: 0.15rem 0.8rem;
+  }
+
+  @media (min-width: 576px) {
+    .navbar-nav {
+      background: color-mix(in srgb, var(--global-bg-color) 90%, transparent);
+      border: 1px solid color-mix(in srgb, var(--global-bg-color) 60%, transparent);
+      border-radius: 10px;
+      padding: 0 0.55rem;
+      box-shadow: 0 2px 10px rgba(30, 29, 27, 0.08);
+    }
   }
 
   @media (max-width: 575.98px) {
@@ -77,18 +96,21 @@ body.homepage {
   z-index: -1;
   pointer-events: none;
   background: url("/assets/img/ucsb-hero.jpg") center 40% / cover no-repeat;
+  filter: saturate(0.75) brightness(1.06);
 
+  // Near-solid paper across the reading area, thinning toward the far edges
   &::after {
     content: "";
     position: absolute;
     inset: 0;
-    background: var(--global-bg-color);
-    opacity: 0.86;
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--global-bg-color) 52%, transparent) 0%,
+      color-mix(in srgb, var(--global-bg-color) 97%, transparent) calc(50% - 500px),
+      color-mix(in srgb, var(--global-bg-color) 97%, transparent) calc(50% + 500px),
+      color-mix(in srgb, var(--global-bg-color) 52%, transparent) 100%
+    );
   }
-}
-
-html[data-theme="dark"] .scenic-bg::after {
-  opacity: 0.9;
 }
 
 // Homepage contents card: a line that fills in gold as you read
@@ -99,12 +121,8 @@ html[data-theme="dark"] .scenic-bg::after {
   transform: translateY(-50%);
   width: 9.8rem;
   z-index: 10;
-  padding: 0.95rem 1rem 0.85rem;
+  padding: 0;
   font-family: var(--home-sans);
-  background: color-mix(in srgb, var(--global-bg-color) 84%, transparent);
-  backdrop-filter: blur(8px);
-  border: 1px solid var(--global-divider-color);
-  border-radius: 12px;
 
   .page-toc-title {
     font-size: 0.62rem;
