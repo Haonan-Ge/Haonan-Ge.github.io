@@ -10,8 +10,8 @@
   --global-code-bg-color: #{$code-bg-color-light};
   --global-text-color: #1e1d1b;
   --global-text-color-light: #6a645b;
-  --global-theme-color: #003660;
-  --global-hover-color: #00284a;
+  --global-theme-color: #1a5fd0;
+  --global-hover-color: #0f4499;
   --global-hover-text-color: #{$white-color};
   --global-footer-bg-color: #{$grey-color-dark};
   --global-footer-text-color: #{$grey-color-light};
@@ -45,7 +45,7 @@
   /* Homepage typography and accent */
   --home-serif: "Newsreader", Georgia, "Times New Roman", serif;
   --home-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
-  --home-accent-soft: rgba(0, 54, 96, 0.07);
+  --home-accent-soft: rgba(26, 95, 208, 0.08);
   --home-gold: #87691a;
 
   --global-tip-block: #42b983;
@@ -100,8 +100,8 @@ html[data-theme="dark"] {
   --global-code-bg-color: #{$code-bg-color-dark};
   --global-text-color: #e8e4dc;
   --global-text-color-light: #a39d92;
-  --global-theme-color: #9dbbe6;
-  --global-hover-color: #c1d4f0;
+  --global-theme-color: #8ab4ff;
+  --global-hover-color: #b3ceff;
   --global-hover-text-color: #{$white-color};
   --global-footer-bg-color: #{$grey-color-light};
   --global-footer-text-color: #{$grey-color-dark};
@@ -130,7 +130,7 @@ html[data-theme="dark"] {
   --brand-badge-gradient: linear-gradient(90deg, #{$brand-sky}, #{$brand-gold});
   --brand-display-font: "Lato", "Helvetica Neue", Arial, sans-serif;
 
-  --home-accent-soft: rgba(157, 187, 230, 0.12);
+  --home-accent-soft: rgba(138, 180, 255, 0.12);
   --home-gold: #d6b45a;
 
   --global-tip-block: #42b983;
