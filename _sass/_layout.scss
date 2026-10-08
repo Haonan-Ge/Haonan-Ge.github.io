@@ -33,6 +33,10 @@ body.sticky-bottom-footer {
   max-width: $max-content-width;
 }
 
+body.homepage {
+  overflow-x: clip;
+}
+
 // Navbar: plain bar with a hairline, no blur or hover motion.
 .navbar {
   background-color: var(--global-bg-color) !important;
@@ -115,7 +119,24 @@ footer.sticky-bottom {
 
   // Header: name and role
   .post-header {
-    margin: 2.5rem 0 2rem;
+    position: relative;
+    isolation: isolate;
+    margin: 0 0 2rem;
+    padding-top: 17rem;
+
+    // UCSB campus photo, full width, fading into the page behind the name
+    .home-hero-bg {
+      position: absolute;
+      z-index: -1;
+      top: -8rem;
+      bottom: 0;
+      left: calc(50% - 50vw);
+      width: 100vw;
+      background: url("/assets/img/ucsb-hero.jpg") center 6% / cover no-repeat;
+      $hero-fade: linear-gradient(to bottom, #000 0%, #000 34%, rgba(0, 0, 0, 0.4) 54%, rgba(0, 0, 0, 0.08) 66%, transparent 84%);
+      -webkit-mask-image: $hero-fade;
+      mask-image: $hero-fade;
+    }
 
     .home-eyebrow {
       font-family: var(--home-sans);
@@ -533,7 +554,7 @@ html[data-theme="dark"] .post-home {
     }
 
     .post-header {
-      margin-top: 1.5rem;
+      padding-top: 10rem;
 
       .home-name {
         font-size: 2.1rem;
