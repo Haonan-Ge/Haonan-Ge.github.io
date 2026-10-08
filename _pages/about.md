@@ -36,7 +36,7 @@ latest_posts:
     <a href="https://faculty.ucmerced.edu/mhyang/">Prof. Ming-Hsuan Yang</a> (UC Merced)<img class="inst-logo" src="/assets/img/ucm.png" alt="">.
   </p>
   <p class="home-links">
-    <a href="mailto:haonange@ucsb.edu">Email</a><span class="sep">/</span><a href="/assets/pdf/CV.pdf">CV</a><span class="sep">/</span><a href="https://scholar.google.com/citations?user={{ site.data.socials.scholar_userid }}">Google Scholar</a><span class="sep">/</span><a href="https://github.com/{{ site.data.socials.github_username }}">GitHub</a><span class="sep">/</span><a href="https://www.linkedin.com/in/{{ site.data.socials.linkedin_username }}">LinkedIn</a>
+    <a href="mailto:haonange@ucsb.edu"><i class="fa-solid fa-envelope" aria-hidden="true"></i>Email</a><span class="sep">/</span><a href="/assets/pdf/CV.pdf"><i class="ai ai-cv" aria-hidden="true"></i>CV</a><span class="sep">/</span><a href="https://scholar.google.com/citations?user={{ site.data.socials.scholar_userid }}"><i class="ai ai-google-scholar" aria-hidden="true"></i>Google Scholar</a><span class="sep">/</span><a href="https://github.com/{{ site.data.socials.github_username }}"><i class="fa-brands fa-github" aria-hidden="true"></i>GitHub</a><span class="sep">/</span><a href="https://www.linkedin.com/in/{{ site.data.socials.linkedin_username }}"><i class="fa-brands fa-linkedin" aria-hidden="true"></i>LinkedIn</a>
   </p>
   <p class="home-email">haonange@ucsb.edu · gehaonan82@gmail.com</p>
 </section>
