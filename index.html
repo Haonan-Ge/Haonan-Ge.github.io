@@ -331,13 +331,15 @@
 </header>
 
 
+    <!-- UCSB scenery behind the page, under a translucent paper layer -->
+    <div class="scenic-bg" aria-hidden="true"></div>
+
     <!-- Content -->
     <div class="container mt-5" role="main">
       
         <div class="post post-home">
-  <header class="post-header">
+  <header class="post-header" id="about">
     
-      <div class="home-hero-bg" aria-hidden="true"></div>
       <p class="home-eyebrow">Multimodal Intelligence · World Modeling · Action Reasoning</p>
       <h1 class="home-name">
         Haonan Ge<span class="home-name-cn" lang="zh">葛浩南</span>
@@ -408,7 +410,7 @@
   collaborations, and students who would like to intern with me are very welcome. Feel free to reach out by email anytime!
 </p>
 
-<h2 class="section-heading">Research Interests</h2>
+<h2 class="section-heading" id="research">Research Interests</h2>
 <div class="interests">
   <div>
     <span class="interest-num">01</span>
@@ -434,7 +436,7 @@
 
     <!-- News -->
     
-      <h2 class="section-heading">
+      <h2 class="section-heading" id="news">
         <a href="/news/">News</a>
       </h2>
       <div class="news">
@@ -546,7 +548,7 @@
 
     <!-- Selected papers -->
     
-      <h2 class="section-heading">
+      <h2 class="section-heading" id="publications">
         <a href="/publications/">Selected Publications</a>
       </h2>
       <div class="publications">
@@ -1535,13 +1537,13 @@
     
 
     
-      <h2 class="section-heading">Academic Services</h2>
+      <h2 class="section-heading" id="services">Academic Services</h2>
 <p class="services">
   <span class="services-label">Conference Reviewer</span>
   ICLR 2027<span class="dot">·</span>WACV 2027<span class="dot">·</span>NeurIPS 2026<span class="dot">·</span>ACM MM 2026<span class="dot">·</span>CVPR 2026<span class="dot">·</span>WACV 2026
 </p>
 
-<h2 class="section-heading">Previous Research Experience</h2>
+<h2 class="section-heading" id="experience">Previous Research Experience</h2>
 <ul class="experience">
   <li>
     <div>
@@ -1562,7 +1564,7 @@
   </li>
 </ul>
 
-<h2 class="section-heading">Miscellaneous</h2>
+<h2 class="section-heading" id="misc">Miscellaneous</h2>
 <p class="misc-lead">
   Beyond research, I spend a lot of time on photography, capturing city nights, landscapes, and skies on both digital and film.
   Music is part of my daily routine: I am a huge fan of Jay Chou and love singing to unwind. To recharge, I go cycling around the
@@ -1684,6 +1686,59 @@
 
 
 
+
+      <nav class="page-toc" aria-label="On this page">
+        <p class="page-toc-title">On this page</p>
+        <div class="page-toc-track">
+          <span class="page-toc-progress" aria-hidden="true"></span>
+          <ol>
+          <li><a href="#about">About</a></li>
+          <li><a href="#research">Research</a></li>
+          <li><a href="#news">News</a></li>
+          <li><a href="#publications">Publications</a></li>
+          <li><a href="#services">Service</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#misc">Beyond Research</a></li>
+          </ol>
+        </div>
+      </nav>
+      <script>
+        (function () {
+          const toc = document.querySelector(".page-toc");
+          if (!toc) return;
+          const links = Array.from(toc.querySelectorAll("a"));
+          const targets = links.map((a) => document.getElementById(a.getAttribute("href").slice(1)));
+          const progress = toc.querySelector(".page-toc-progress");
+          let ticking = false;
+
+          function update() {
+            ticking = false;
+            const readLine = 120;
+            let active = 0;
+            targets.forEach((t, i) => {
+              if (t && t.getBoundingClientRect().top <= readLine) active = i;
+            });
+            if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) active = targets.length - 1;
+            links.forEach((a, i) => {
+              a.classList.toggle("is-active", i === active);
+              a.classList.toggle("is-past", i < active);
+              if (i === active) a.setAttribute("aria-current", "location");
+              else a.removeAttribute("aria-current");
+            });
+            const li = links[active].parentElement;
+            progress.style.height = Math.max(0, li.offsetTop + 12 - progress.offsetTop) + "px";
+          }
+
+          window.addEventListener("scroll", () => {
+            if (!ticking) {
+              ticking = true;
+              requestAnimationFrame(update);
+            }
+          }, { passive: true });
+          window.addEventListener("resize", update);
+          update();
+        })();
+      </script>
     
 
     <!-- Social -->
