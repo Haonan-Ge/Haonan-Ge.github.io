@@ -46,7 +46,7 @@ latest_posts:
   collaborations, and students who would like to intern with me are very welcome. Feel free to reach out by email anytime!
 </p>
 
-<h2 class="section-heading">Research Interests</h2>
+<h2 class="section-heading" id="research">Research Interests</h2>
 <div class="interests">
   <div>
     <span class="interest-num">01</span>

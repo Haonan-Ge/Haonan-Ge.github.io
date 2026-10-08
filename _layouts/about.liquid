@@ -2,9 +2,8 @@
 layout: default
 ---
 <div class="post {% if page.url == '/' %}post-home{% endif %}">
-  <header class="post-header">
+  <header class="post-header"{% if page.url == '/' %} id="about"{% endif %}>
     {% if page.url == '/' %}
-      <div class="home-hero-bg" aria-hidden="true"></div>
       <p class="home-eyebrow">Multimodal Intelligence · World Modeling · Action Reasoning</p>
       <h1 class="home-name">
         {{ site.first_name }} {{ site.last_name }}<span class="home-name-cn" lang="zh">葛浩南</span>
@@ -56,7 +55,7 @@ layout: default
 
     <!-- News -->
     {% if page.announcements and page.announcements.enabled %}
-      <h2 class="section-heading">
+      <h2 class="section-heading" id="news">
         <a href="{{ '/news/' | relative_url }}">News</a>
       </h2>
       {% include news.liquid limit=true %}
@@ -72,7 +71,7 @@ layout: default
 
     <!-- Selected papers -->
     {% if page.selected_papers %}
-      <h2 class="section-heading">
+      <h2 class="section-heading" id="publications">
         <a href="{{ '/publications/' | relative_url }}">Selected Publications</a>
       </h2>
       {% include selected_papers.liquid %}
@@ -80,6 +79,59 @@ layout: default
 
     {% if page.url == '/' %}
       {% include home_extra_sections.liquid %}
+
+      <nav class="page-toc" aria-label="On this page">
+        <p class="page-toc-title">On this page</p>
+        <div class="page-toc-track">
+          <span class="page-toc-progress" aria-hidden="true"></span>
+          <ol>
+          <li><a href="#about">About</a></li>
+          <li><a href="#research">Research</a></li>
+          <li><a href="#news">News</a></li>
+          <li><a href="#publications">Publications</a></li>
+          <li><a href="#services">Service</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#misc">Beyond Research</a></li>
+          </ol>
+        </div>
+      </nav>
+      <script>
+        (function () {
+          const toc = document.querySelector(".page-toc");
+          if (!toc) return;
+          const links = Array.from(toc.querySelectorAll("a"));
+          const targets = links.map((a) => document.getElementById(a.getAttribute("href").slice(1)));
+          const progress = toc.querySelector(".page-toc-progress");
+          let ticking = false;
+
+          function update() {
+            ticking = false;
+            const readLine = 120;
+            let active = 0;
+            targets.forEach((t, i) => {
+              if (t && t.getBoundingClientRect().top <= readLine) active = i;
+            });
+            if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) active = targets.length - 1;
+            links.forEach((a, i) => {
+              a.classList.toggle("is-active", i === active);
+              a.classList.toggle("is-past", i < active);
+              if (i === active) a.setAttribute("aria-current", "location");
+              else a.removeAttribute("aria-current");
+            });
+            const li = links[active].parentElement;
+            progress.style.height = Math.max(0, li.offsetTop + 12 - progress.offsetTop) + "px";
+          }
+
+          window.addEventListener("scroll", () => {
+            if (!ticking) {
+              ticking = true;
+              requestAnimationFrame(update);
+            }
+          }, { passive: true });
+          window.addEventListener("resize", update);
+          update();
+        })();
+      </script>
     {% endif %}
 
     <!-- Social -->

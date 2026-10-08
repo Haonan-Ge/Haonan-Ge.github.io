@@ -37,9 +37,16 @@ body.homepage {
   overflow-x: clip;
 }
 
-// Navbar: plain bar with a hairline, no blur or hover motion.
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+// Navbar: translucent paper over the page photo.
 .navbar {
-  background-color: var(--global-bg-color) !important;
+  background: color-mix(in srgb, var(--global-bg-color) 80%, transparent) !important;
+  backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--global-divider-color);
   box-shadow: none;
 
@@ -48,9 +55,148 @@ body.homepage {
     font-weight: 600;
   }
 
+  @media (max-width: 575.98px) {
+    .navbar-collapse {
+      background: var(--global-bg-color);
+      border-radius: 10px;
+      margin-top: 0.5rem;
+      padding: 0.25rem 1rem;
+    }
+  }
+
   .nav-link {
     font-family: var(--home-sans);
     font-size: 0.9rem;
+  }
+}
+
+// UCSB photo behind the whole page, under a full-width translucent paper layer
+.scenic-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: url("/assets/img/ucsb-hero.jpg") center 40% / cover no-repeat;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--global-bg-color);
+    opacity: 0.86;
+  }
+}
+
+html[data-theme="dark"] .scenic-bg::after {
+  opacity: 0.9;
+}
+
+// Homepage contents card: a line that fills in gold as you read
+.page-toc {
+  position: fixed;
+  top: 50%;
+  right: calc((100vw - #{$max-content-width}) / 4 - 4.9rem);
+  transform: translateY(-50%);
+  width: 9.8rem;
+  z-index: 10;
+  padding: 0.95rem 1rem 0.85rem;
+  font-family: var(--home-sans);
+  background: color-mix(in srgb, var(--global-bg-color) 84%, transparent);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--global-divider-color);
+  border-radius: 12px;
+
+  .page-toc-title {
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--home-gold);
+    margin: 0 0 0.6rem;
+  }
+
+  .page-toc-track {
+    position: relative;
+  }
+
+  ol {
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 1.05rem;
+
+    // track
+    &::before {
+      content: "";
+      position: absolute;
+      left: 3px;
+      top: 0.55rem;
+      bottom: 0.55rem;
+      width: 1px;
+      background: var(--global-divider-color);
+    }
+  }
+
+  .page-toc-progress {
+    position: absolute;
+    left: 3px;
+    top: 0.55rem;
+    width: 1px;
+    height: 0;
+    background: var(--home-gold);
+    transition: height 0.3s ease;
+  }
+
+  li {
+    position: relative;
+  }
+
+  ol a {
+    display: block;
+    padding: 0.2rem 0;
+    font-size: 0.78rem;
+    line-height: 1.35;
+    color: var(--global-text-color-light);
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: calc(-1.05rem + 0.5px);
+      top: 0.55rem;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--global-bg-color);
+      border: 1px solid var(--global-divider-color);
+      transition: all 0.25s ease;
+    }
+
+    &:hover {
+      color: var(--global-text-color);
+    }
+
+    &.is-past::before {
+      border-color: var(--home-gold);
+    }
+
+    &.is-active {
+      color: var(--global-text-color);
+      font-weight: 600;
+
+      &::before {
+        background: var(--home-gold);
+        border-color: var(--home-gold);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--home-gold) 22%, transparent);
+      }
+    }
+  }
+}
+
+@media (max-width: 1299.98px) {
+  .page-toc {
+    display: none;
   }
 }
 
@@ -119,25 +265,12 @@ footer.sticky-bottom {
   }
 
   // Header: name and role
-  .post-header {
-    position: relative;
-    isolation: isolate;
-    margin: 0 0 2rem;
-    padding-top: 17rem;
+  [id] {
+    scroll-margin-top: 84px;
+  }
 
-    // UCSB campus photo, full width, fading into the page behind the name
-    .home-hero-bg {
-      position: absolute;
-      z-index: -1;
-      top: -8rem;
-      bottom: 0;
-      left: calc(50% - 50vw);
-      width: 100vw;
-      background: url("/assets/img/ucsb-hero.jpg") center 6% / cover no-repeat;
-      $hero-fade: linear-gradient(to bottom, #000 0%, #000 34%, rgba(0, 0, 0, 0.4) 54%, rgba(0, 0, 0, 0.08) 66%, transparent 84%);
-      -webkit-mask-image: $hero-fade;
-      mask-image: $hero-fade;
-    }
+  .post-header {
+    margin: 3rem 0 2rem;
 
     .home-eyebrow {
       font-family: var(--home-sans);
@@ -555,7 +688,7 @@ html[data-theme="dark"] .post-home {
     }
 
     .post-header {
-      padding-top: 10rem;
+      margin-top: 1.5rem;
 
       .home-name {
         font-size: 2.1rem;
