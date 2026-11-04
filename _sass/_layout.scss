@@ -554,6 +554,11 @@ footer.sticky-bottom {
 
   // Academic services
   .services {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    column-gap: 1.25rem;
+    row-gap: 0.55rem;
+    align-items: baseline;
     margin: 0;
 
     .services-label {
@@ -563,7 +568,6 @@ footer.sticky-bottom {
       letter-spacing: 0.06em;
       color: var(--global-text-color-light);
       font-weight: 600;
-      margin-right: 0.6rem;
     }
 
     .dot {
@@ -852,6 +856,15 @@ html[data-theme="dark"] .post-home {
 
     .photo-tile {
       height: 130px;
+    }
+
+    .services {
+      grid-template-columns: 1fr;
+      row-gap: 0.2rem;
+
+      .services-label:not(:first-child) {
+        margin-top: 0.6rem;
+      }
     }
 
     .experience li {
