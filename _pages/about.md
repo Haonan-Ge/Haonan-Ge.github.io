@@ -50,18 +50,19 @@ latest_posts:
 <div class="interests">
   <div>
     <span class="interest-num">01</span>
-    <h3>Faithful Multimodal Intelligence and World Modeling</h3>
+    <h3>Video Understanding and Memory for Multimodal LLMs</h3>
     <p>
-      I build multimodal models that learn physical laws and world dynamics from large-scale unlabeled video, grounding decisions in
-      perceptual evidence rather than language priors.
+      I build multimodal LLMs that perceive, remember, and reason over long and streaming video: deciding what to keep in memory,
+      which frames to look at, and how to ground answers in visual evidence rather than language priors.
     </p>
   </div>
   <div>
     <span class="interest-num">02</span>
-    <h3>Scalable Multimodal Action Reasoning and Agents</h3>
+    <h3>Embodied Agents and World Models</h3>
     <p>
-      I study controllable systems that integrate images, video, audio, and actions, aiming for practical agentic tools for creative
-      workflows like filmmaking and design.
+      I study agents that turn perception into action: robot-use agents that learn which way of acting (direct motion, motion
+      planning, control programs, or VLA policies) they can execute reliably and cheaply, and world models that let them anticipate
+      the consequences of their actions.
     </p>
   </div>
 </div>
