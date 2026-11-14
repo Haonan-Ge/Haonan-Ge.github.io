@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-I will be attending [NeurIPS 2026](https://neurips.cc/) in Atlanta to present "What Should a Streaming Video Model Remember?". See you in ATL! :wave:
+I will be attending [NeurIPS 2026](https://neurips.cc/) in Atlanta, Georgia, from December 8 to 13. See you in Atlanta! :wave:
