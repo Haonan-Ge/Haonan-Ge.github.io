@@ -729,11 +729,12 @@
       { passive: true }
     );
 
-    // 1b. One light source for every glass surface. Each surface gets the direction of the
-    //     light (--lg-a: its rim is brightest on that side) and where the glare sits on it
-    //     (--lg-sx/--lg-sy). The light follows the pointer; without one it hangs above the
-    //     top-left of the window, so highlights shift as you scroll, and on phones that
-    //     report orientation it tilts with the device.
+    // 1b. One light source for the glass. By default it sits above the top-left of the
+    //     window, which the stylesheet's fallback values already describe, so nothing runs
+    //     while the page scrolls. With a mouse, the light follows the pointer: each visible
+    //     surface gets the direction of the light (--lg-a, --lg-lx/--lg-ly) and where its
+    //     glare falls (--lg-sx/--lg-sy). On phones that report orientation, tilting the
+    //     device swings the light. Updates are held while the page is scrolling.
     const GLASS = [
       CARDS,
       ".navbar .navbar-nav",
@@ -741,30 +742,39 @@
       ".lg-nav-bead",
       ".page-toc",
       "#back-to-top",
-      '.container[role="main"]',
       "footer.sticky-bottom .container",
     ].join(",");
+    const PROPS = ["--lg-a", "--lg-sx", "--lg-sy", "--lg-lx", "--lg-ly"];
+    const root = document.documentElement;
     let pointer = null;
-    let tilt = null;
+    let lit = [];
     let queued = false;
+    let scrolling = false;
+    let scrollTimer = 0;
 
-    function lightAt() {
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-      if (pointer) return { x: pointer.x, y: pointer.y - 140 };
-      if (tilt) return { x: w * 0.5 + tilt.x * w * 0.9, y: -h * 0.3 + tilt.y * h * 0.9 };
-      return { x: w * 0.18, y: -h * 0.35 };
+    function clear(el) {
+      PROPS.forEach((p) => el.style.removeProperty(p));
+      el._lgKey = null;
     }
 
     function relight() {
       queued = false;
-      const L = lightAt();
+      if (scrolling) return;
+      if (!pointer) {
+        lit.forEach(clear);
+        lit = [];
+        return;
+      }
+      const lightX = pointer.x;
+      const lightY = pointer.y - 140;
       const vh = window.innerHeight;
+      const next = [];
       document.querySelectorAll(GLASS).forEach((el) => {
         const r = el.getBoundingClientRect();
         if (!r.width || r.bottom < 0 || r.top > vh) return;
-        const dx = L.x - (r.left + r.width / 2);
-        const dy = L.y - (r.top + r.height / 2);
+        next.push(el);
+        const dx = lightX - (r.left + r.width / 2);
+        const dy = lightY - (r.top + r.height / 2);
         const angle = Math.round((Math.atan2(-dx, dy) * 180) / Math.PI);
         // glare: under the light when it is over the surface, else on the nearest edge
         const nx = dx / (r.width / 2);
@@ -772,19 +782,20 @@
         const k = Math.max(1, Math.hypot(nx, ny));
         const sx = Math.round(50 + (50 * nx) / k);
         const sy = Math.round(50 + (50 * ny) / k);
-        // unit vector towards the light, for the bevel along the inner edge
-        const d = Math.hypot(dx, dy) || 1;
-        const lx = (dx / d).toFixed(2);
-        const ly = (dy / d).toFixed(2);
         const key = `${angle},${sx},${sy}`;
         if (el._lgKey === key) return;
         el._lgKey = key;
+        const d = Math.hypot(dx, dy) || 1;
         el.style.setProperty("--lg-a", `${angle}deg`);
         el.style.setProperty("--lg-sx", `${sx}%`);
         el.style.setProperty("--lg-sy", `${sy}%`);
-        el.style.setProperty("--lg-lx", lx);
-        el.style.setProperty("--lg-ly", ly);
+        el.style.setProperty("--lg-lx", (dx / d).toFixed(2));
+        el.style.setProperty("--lg-ly", (dy / d).toFixed(2));
       });
+      lit.forEach((el) => {
+        if (!next.includes(el)) clear(el);
+      });
+      lit = next;
     }
 
     function queue() {
@@ -802,25 +813,49 @@
       },
       { passive: true }
     );
-    document.documentElement.addEventListener("pointerleave", () => {
+    root.addEventListener("pointerleave", () => {
       pointer = null;
       queue();
     });
-    window.addEventListener("scroll", queue, { passive: true });
-    window.addEventListener("resize", queue);
     window.addEventListener(
-      "deviceorientation",
-      (e) => {
-        if (e.gamma == null || e.beta == null) return;
-        tilt = {
-          x: Math.max(-1, Math.min(1, e.gamma / 45)),
-          y: Math.max(-1, Math.min(1, (e.beta - 45) / 45)),
-        };
-        queue();
+      "scroll",
+      () => {
+        scrolling = true;
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(() => {
+          scrolling = false;
+          if (pointer) queue();
+        }, 150);
       },
       { passive: true }
     );
-    queue();
+    window.addEventListener("resize", queue);
+
+    // Device tilt sets one light direction for the whole page, in 10-degree steps so small
+    // hand movements do not repaint anything.
+    let tiltKey = "";
+    window.addEventListener(
+      "deviceorientation",
+      (e) => {
+        if (pointer || scrolling || e.gamma == null || e.beta == null) return;
+        const gx = Math.max(-1, Math.min(1, e.gamma / 45));
+        const gy = Math.max(-1, Math.min(1, (e.beta - 45) / 45));
+        const raw = (Math.atan2(0.5 - gx * 0.8, -0.87 + gy * 0.6) * 180) / Math.PI;
+        const angle = Math.round(raw / 10) * 10;
+        if (String(angle) === tiltKey) return;
+        tiltKey = String(angle);
+        const t = (angle * Math.PI) / 180;
+        const lx = -Math.sin(t);
+        const ly = Math.cos(t);
+        const k = Math.max(Math.abs(lx), Math.abs(ly));
+        root.style.setProperty("--lg-a", `${angle}deg`);
+        root.style.setProperty("--lg-lx", lx.toFixed(2));
+        root.style.setProperty("--lg-ly", ly.toFixed(2));
+        root.style.setProperty("--lg-sx", `${Math.round(50 + (50 * lx) / k)}%`);
+        root.style.setProperty("--lg-sy", `${Math.round(50 + (50 * ly) / k)}%`);
+      },
+      { passive: true }
+    );
 
     // 2. A glass bead glides between navigation items, resting on the current page.
     function setUpBead() {
@@ -944,7 +979,6 @@
     function start() {
       setUpBead();
       setUpLens();
-      queue();
     }
     // The back-to-top button is added by another script, so wait for the page to finish loading.
     if (document.readyState === "complete") start();
