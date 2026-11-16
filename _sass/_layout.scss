@@ -105,10 +105,10 @@ body.homepage {
     inset: 0;
     background: linear-gradient(
       90deg,
-      color-mix(in srgb, var(--global-bg-color) 72%, transparent) 0%,
-      color-mix(in srgb, var(--global-bg-color) 97%, transparent) calc(50% - 500px),
-      color-mix(in srgb, var(--global-bg-color) 97%, transparent) calc(50% + 500px),
-      color-mix(in srgb, var(--global-bg-color) 72%, transparent) 100%
+      color-mix(in srgb, var(--global-bg-color) 50%, transparent) 0%,
+      color-mix(in srgb, var(--global-bg-color) 72%, transparent) calc(50% - 500px),
+      color-mix(in srgb, var(--global-bg-color) 72%, transparent) calc(50% + 500px),
+      color-mix(in srgb, var(--global-bg-color) 50%, transparent) 100%
     );
   }
 }
@@ -875,5 +875,449 @@ html[data-theme="dark"] .post-home {
     .news .table th {
       width: 6.5rem !important;
     }
+  }
+}
+
+
+/******************************************************************************
+ * Liquid glass (iOS 26 style). Each glass surface is built from:
+ *   - a translucent fill that blurs and brightens what is behind it,
+ *   - a thin rim of light, brightest at the top-left and bottom-right corners,
+ *   - a soft inner glow along the edges (the thickness of the glass) and a faint
+ *     shade along the bottom (its curvature),
+ *   - a floating shadow, and on cards a highlight that follows the pointer.
+ * _includes/liquid_glass.liquid adds the pointer highlight, the sliding nav
+ * selector and, in Chromium, edge refraction for the small floating controls.
+ ******************************************************************************/
+
+:root {
+  // large sheet behind the page content
+  --glass-tint-top: rgba(255, 255, 255, 0.6);
+  --glass-tint-bottom: rgba(255, 255, 255, 0.38);
+  --glass-sheen: rgba(255, 255, 255, 0.45);
+  // cards and controls: a nearly clear middle, bright edges, and a hairline outline
+  --lg-fill-a: rgba(255, 255, 255, 0.2);
+  --lg-fill-b: rgba(255, 255, 255, 0.02);
+  --lg-rim-hi: rgba(255, 255, 255, 1);
+  --lg-rim-mid: rgba(255, 255, 255, 0.75);
+  --lg-rim-lo: rgba(255, 255, 255, 0.2);
+  --lg-edge: rgba(255, 255, 255, 0.35);
+  --lg-outline: rgba(70, 58, 40, 0.1);
+  --lg-glow: rgba(255, 255, 255, 0.78);
+  --lg-depth: rgba(96, 84, 64, 0.12);
+  --lg-shadow: rgba(30, 29, 27, 0.09);
+  --lg-light: rgba(255, 255, 255, 0.8);
+  --lg-rim-back: rgba(255, 255, 255, 0.85);
+  --lg-rim-dark: rgba(70, 58, 40, 0.22);
+  --lg-rim-cool: rgba(196, 226, 255, 0.95);
+  --lg-rim-warm: rgba(255, 222, 196, 0.85);
+  --lg-glare: rgba(255, 255, 255, 0.55);
+  --lg-bevel: rgba(255, 255, 255, 0.7);
+  --lg-bevel-hi: rgba(255, 255, 255, 1);
+  --lg-bevel-lo: rgba(70, 58, 40, 0.13);
+  --lg-shade: rgba(70, 58, 40, 0.07);
+}
+
+html[data-theme="dark"] {
+  --glass-tint-top: rgba(46, 46, 50, 0.62);
+  --glass-tint-bottom: rgba(24, 24, 27, 0.48);
+  --glass-sheen: rgba(255, 255, 255, 0.06);
+  --lg-fill-a: rgba(255, 255, 255, 0.1);
+  --lg-fill-b: rgba(255, 255, 255, 0.025);
+  --lg-rim-hi: rgba(255, 255, 255, 0.6);
+  --lg-rim-mid: rgba(255, 255, 255, 0.2);
+  --lg-rim-lo: rgba(255, 255, 255, 0.04);
+  --lg-edge: rgba(255, 255, 255, 0.08);
+  --lg-outline: rgba(0, 0, 0, 0.35);
+  --lg-glow: rgba(255, 255, 255, 0.07);
+  --lg-depth: rgba(0, 0, 0, 0.3);
+  --lg-shadow: rgba(0, 0, 0, 0.45);
+  --lg-light: rgba(255, 255, 255, 0.1);
+  --lg-rim-back: rgba(255, 255, 255, 0.28);
+  --lg-rim-dark: rgba(0, 0, 0, 0.5);
+  --lg-rim-cool: rgba(170, 210, 255, 0.45);
+  --lg-rim-warm: rgba(255, 200, 170, 0.25);
+  --lg-glare: rgba(255, 255, 255, 0.09);
+  --lg-bevel: rgba(255, 255, 255, 0.12);
+  --lg-bevel-hi: rgba(255, 255, 255, 0.24);
+  --lg-bevel-lo: rgba(0, 0, 0, 0.45);
+  --lg-shade: rgba(0, 0, 0, 0.18);
+}
+
+// The ring of light around a glass edge, drawn on a pseudo-element. --lg-a (set by script)
+// points away from the light, so the edge facing the light is brightest and the far edge
+// catches a weaker reflection, as on a real piece of glass.
+@mixin lg-rim-layer($w: 1.5px) {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: $w;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    var(--lg-a, 135deg),
+    var(--lg-rim-hi) 0%,
+    var(--lg-rim-cool) 7%,
+    var(--lg-rim-mid) 14%,
+    var(--lg-rim-lo) 32%,
+    var(--lg-rim-lo) 56%,
+    var(--lg-rim-dark) 82%,
+    var(--lg-rim-warm) 93%,
+    var(--lg-rim-back) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+// --lg-lx/--lg-ly (set by script) is the direction of the light, so the inner edge facing it
+// catches a bright bevel and the opposite inner edge falls into shade, like thick glass
+@mixin lg-shadows($glow: 22px) {
+  box-shadow:
+    0 0 0 0.5px var(--lg-outline),
+    inset 0 0 0 1px var(--lg-edge),
+    inset calc(var(--lg-lx, -0.5) * -3px) calc(var(--lg-ly, -0.85) * -3px) 3px -1px var(--lg-bevel-hi),
+    inset calc(var(--lg-lx, -0.5) * 3px) calc(var(--lg-ly, -0.85) * 3px) 4px -1px var(--lg-bevel-lo),
+    inset 0 0 $glow var(--lg-glow),
+    inset 0 -14px 24px -18px var(--lg-depth),
+    0 1px 2px var(--lg-shadow),
+    0 12px 32px -8px var(--lg-shadow);
+}
+
+// A glass card or control: fill, blur, edge glow, shadow and rim
+@mixin lg-surface($blur: 12px, $radius: 22px) {
+  position: relative;
+  isolation: isolate;
+  border: none;
+  border-radius: $radius;
+  // Layers, top to bottom: a bright bevel along the edge facing the light, a faint shade
+  // along the far edge (the glass is thicker there), a glare where the light falls
+  // (--lg-sx/--lg-sy, set by script), and the tinted fill
+  background:
+    linear-gradient(var(--lg-a, 135deg), var(--lg-bevel) 0, transparent 9%),
+    linear-gradient(var(--lg-a, 135deg), transparent 80%, var(--lg-shade) 100%),
+    radial-gradient(ellipse 65% 55% at var(--lg-sx, 15%) var(--lg-sy, 0%), var(--lg-glare), transparent 70%),
+    linear-gradient(var(--lg-a, 135deg), var(--lg-fill-a), var(--lg-fill-b));
+  -webkit-backdrop-filter: blur($blur) saturate(240%) brightness(1.03);
+  backdrop-filter: blur($blur) saturate(240%) brightness(1.03);
+  @include lg-shadows;
+
+  &::before {
+    @include lg-rim-layer;
+  }
+}
+
+// Soft light under the pointer (position set by script), plus a springy lift
+@mixin lg-interactive($lift: true) {
+  transition:
+    transform 0.55s cubic-bezier(0.3, 1.5, 0.5, 1),
+    box-shadow 0.3s ease;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(circle 14rem at var(--lg-x, 20%) var(--lg-y, 0%), var(--lg-light), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
+
+  @if $lift {
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// Navigation: a floating glass capsule over the campus photo
+.navbar {
+  .navbar-brand {
+    @include lg-surface(16px, 999px);
+    padding: 0.2rem 1rem;
+  }
+
+  @media (min-width: 576px) {
+    .navbar-nav {
+      @include lg-surface(16px, 999px);
+      padding: 0.25rem 0.35rem;
+      align-items: center;
+    }
+
+    .nav-item .nav-link {
+      position: relative;
+      z-index: 1;
+      border-radius: 999px;
+      padding: 0.3rem 0.85rem !important;
+      transition: background 0.2s ease;
+    }
+
+    .nav-item:not(.active) .nav-link:hover {
+      background: var(--lg-fill-b);
+    }
+
+    // Current page: a brighter glass bead (replaced by the sliding one when scripts run)
+    .nav-item.active .nav-link {
+      background: var(--lg-fill-a);
+      box-shadow:
+        inset 0 0 0 1px var(--lg-edge),
+        inset 0 1px 0 var(--lg-rim-hi),
+        0 2px 8px var(--lg-shadow);
+    }
+
+    .navbar-nav.lg-has-bead .nav-item .nav-link {
+      background: none !important;
+      box-shadow: none !important;
+    }
+
+    // The bead glides between items like the iOS 26 tab bar
+    .lg-nav-bead {
+      position: absolute;
+      top: 0.25rem;
+      bottom: 0.25rem;
+      left: 0;
+      width: 0;
+      border-radius: 999px;
+      pointer-events: none;
+      background: var(--lg-fill-a);
+      box-shadow:
+        inset 0 0 0 1px var(--lg-edge),
+        inset 0 0 10px var(--lg-glow),
+        0 2px 10px var(--lg-shadow);
+      transition:
+        transform 0.55s cubic-bezier(0.3, 1.35, 0.45, 1),
+        width 0.55s cubic-bezier(0.3, 1.35, 0.45, 1),
+        opacity 0.25s ease;
+
+      &::before {
+        @include lg-rim-layer(1px);
+      }
+    }
+  }
+
+  @media (max-width: 575.98px) {
+    .navbar-collapse {
+      @include lg-surface(20px, 20px);
+    }
+
+    .lg-nav-bead {
+      display: none;
+    }
+  }
+}
+
+// The page content sits on one large glass sheet. The glass is drawn on layers behind
+// the content (not on the container itself): a blur on the container would make it the
+// reference frame for fixed elements inside it, such as the contents card and photo viewer.
+.container[role="main"] {
+  position: relative;
+  isolation: isolate;
+  border-radius: 30px;
+  padding: 1.5rem 2.75rem 2.5rem;
+  margin-bottom: 2.5rem;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+    background:
+      radial-gradient(1100px 520px at var(--lg-sx, 12%) var(--lg-sy, 0%), var(--glass-sheen), transparent 70%),
+      linear-gradient(170deg, var(--glass-tint-top), var(--glass-tint-bottom));
+    -webkit-backdrop-filter: blur(26px) saturate(170%) brightness(1.04);
+    backdrop-filter: blur(26px) saturate(170%) brightness(1.04);
+    @include lg-shadows(40px);
+  }
+
+  &::after {
+    @include lg-rim-layer(1.5px);
+    z-index: -1;
+  }
+}
+
+.post-home .post-header {
+  margin-top: 1.5rem;
+}
+
+// Glass cards inside the sheet
+.post-home {
+  // Internship note
+  .home-note {
+    @include lg-surface(10px, 20px);
+    @include lg-interactive(false);
+    border-left: none;
+    padding: 0.95rem 1.4rem;
+  }
+
+  // Contact links become glass buttons
+  .home-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    .sep {
+      display: none;
+    }
+
+    a {
+      @include lg-surface(10px, 999px);
+      @include lg-interactive;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.38rem 0.95rem;
+      @include lg-shadows(12px);
+
+      &:active {
+        transform: scale(0.96);
+      }
+    }
+  }
+
+  // Research interests: two glass cards
+  .interests {
+    gap: 1.25rem;
+
+    > div {
+      @include lg-surface(10px, 22px);
+      @include lg-interactive;
+      padding: 1.25rem 1.4rem 1.35rem;
+    }
+  }
+
+  // News inside one glass card
+  .news {
+    @include lg-surface(10px, 22px);
+    @include lg-interactive(false);
+    padding: 0.7rem 1.4rem;
+
+    .table-responsive {
+      border-bottom: none;
+    }
+  }
+
+  // Each selected paper on its own glass card
+  .publications ol.bibliography li {
+    @include lg-surface(10px, 22px);
+    @include lg-interactive;
+    padding: 1.15rem 1.25rem;
+    margin-bottom: 1rem;
+    border-bottom: none;
+
+    // the closed abstract/bibtex boxes keep a page-coloured border that shows on glass
+    .hidden:not(.open) {
+      border-color: transparent;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  // Services inside one glass card
+  .services {
+    @include lg-surface(10px, 22px);
+    @include lg-interactive(false);
+    padding: 1.1rem 1.4rem;
+  }
+
+  // Each previous lab on its own glass card
+  .experience li {
+    @include lg-surface(10px, 22px);
+    @include lg-interactive;
+    padding: 1rem 1.4rem;
+    margin-bottom: 0.9rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// Contents sidebar as a small glass card
+.page-toc {
+  @include lg-surface(18px, 20px);
+  position: fixed;
+  padding: 0.9rem 1rem 0.8rem;
+  width: 10.6rem;
+  right: calc((100vw - #{$max-content-width}) / 4 - 5.3rem);
+}
+
+// Back-to-top button and footer as glass capsules
+html #back-to-top {
+  @include lg-surface(14px, 999px);
+  position: fixed;
+  color: var(--global-text-color) !important;
+}
+
+footer.sticky-bottom {
+  border-top: none;
+
+  .container {
+    @include lg-surface(14px, 999px);
+    width: fit-content;
+    max-width: calc(100% - 2rem);
+    padding: 0.55rem 1.4rem;
+  }
+}
+
+// Photo viewer controls pick up the same blur
+.post-home .photo-lightbox-close,
+.post-home .photo-lightbox-nav {
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+@media (max-width: 767px) {
+  .container[role="main"] {
+    border-radius: 22px;
+    padding: 1rem 1.1rem 1.75rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    width: auto;
+  }
+
+  .post-home {
+    .interests > div,
+    .news,
+    .services,
+    .experience li,
+    .publications ol.bibliography li {
+      border-radius: 18px;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
+
+  footer.sticky-bottom .container {
+    border-radius: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .post-home .lg-nav-bead,
+  .lg-nav-bead {
+    transition: none;
+  }
+}
+
+// Browsers without backdrop blur get a solid, readable surface instead
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .container[role="main"]::before,
+  .page-toc,
+  .navbar .navbar-nav,
+  .navbar .navbar-brand,
+  footer.sticky-bottom .container {
+    background: var(--global-bg-color);
   }
 }
