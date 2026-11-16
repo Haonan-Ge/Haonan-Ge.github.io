@@ -607,5 +607,254 @@
 
 
 
+    <script>
+  // Liquid glass behaviour (styles live at the end of _sass/_layout.scss)
+  (function () {
+    // 1. A soft light follows the pointer across glass cards.
+    const CARDS = [
+      ".post-home .home-note",
+      ".post-home .home-links a",
+      ".post-home .interests > div",
+      ".post-home .news",
+      ".post-home .publications ol.bibliography li",
+      ".post-home .services",
+      ".post-home .experience li",
+    ].join(",");
+
+    document.addEventListener(
+      "pointermove",
+      (e) => {
+        const card = e.target.closest && e.target.closest(CARDS);
+        if (!card) return;
+        const r = card.getBoundingClientRect();
+        card.style.setProperty("--lg-x", `${e.clientX - r.left}px`);
+        card.style.setProperty("--lg-y", `${e.clientY - r.top}px`);
+      },
+      { passive: true }
+    );
+
+    // 1b. One light source for every glass surface. Each surface gets the direction of the
+    //     light (--lg-a: its rim is brightest on that side) and where the glare sits on it
+    //     (--lg-sx/--lg-sy). The light follows the pointer; without one it hangs above the
+    //     top-left of the window, so highlights shift as you scroll, and on phones that
+    //     report orientation it tilts with the device.
+    const GLASS = [
+      CARDS,
+      ".navbar .navbar-nav",
+      ".navbar .navbar-brand",
+      ".lg-nav-bead",
+      ".page-toc",
+      "#back-to-top",
+      '.container[role="main"]',
+      "footer.sticky-bottom .container",
+    ].join(",");
+    let pointer = null;
+    let tilt = null;
+    let queued = false;
+
+    function lightAt() {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      if (pointer) return { x: pointer.x, y: pointer.y - 140 };
+      if (tilt) return { x: w * 0.5 + tilt.x * w * 0.9, y: -h * 0.3 + tilt.y * h * 0.9 };
+      return { x: w * 0.18, y: -h * 0.35 };
+    }
+
+    function relight() {
+      queued = false;
+      const L = lightAt();
+      const vh = window.innerHeight;
+      document.querySelectorAll(GLASS).forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (!r.width || r.bottom < 0 || r.top > vh) return;
+        const dx = L.x - (r.left + r.width / 2);
+        const dy = L.y - (r.top + r.height / 2);
+        const angle = Math.round((Math.atan2(-dx, dy) * 180) / Math.PI);
+        // glare: under the light when it is over the surface, else on the nearest edge
+        const nx = dx / (r.width / 2);
+        const ny = dy / (r.height / 2);
+        const k = Math.max(1, Math.hypot(nx, ny));
+        const sx = Math.round(50 + (50 * nx) / k);
+        const sy = Math.round(50 + (50 * ny) / k);
+        // unit vector towards the light, for the bevel along the inner edge
+        const d = Math.hypot(dx, dy) || 1;
+        const lx = (dx / d).toFixed(2);
+        const ly = (dy / d).toFixed(2);
+        const key = `${angle},${sx},${sy}`;
+        if (el._lgKey === key) return;
+        el._lgKey = key;
+        el.style.setProperty("--lg-a", `${angle}deg`);
+        el.style.setProperty("--lg-sx", `${sx}%`);
+        el.style.setProperty("--lg-sy", `${sy}%`);
+        el.style.setProperty("--lg-lx", lx);
+        el.style.setProperty("--lg-ly", ly);
+      });
+    }
+
+    function queue() {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(relight);
+    }
+
+    document.addEventListener(
+      "pointermove",
+      (e) => {
+        if (e.pointerType !== "mouse") return;
+        pointer = { x: e.clientX, y: e.clientY };
+        queue();
+      },
+      { passive: true }
+    );
+    document.documentElement.addEventListener("pointerleave", () => {
+      pointer = null;
+      queue();
+    });
+    window.addEventListener("scroll", queue, { passive: true });
+    window.addEventListener("resize", queue);
+    window.addEventListener(
+      "deviceorientation",
+      (e) => {
+        if (e.gamma == null || e.beta == null) return;
+        tilt = {
+          x: Math.max(-1, Math.min(1, e.gamma / 45)),
+          y: Math.max(-1, Math.min(1, (e.beta - 45) / 45)),
+        };
+        queue();
+      },
+      { passive: true }
+    );
+    queue();
+
+    // 2. A glass bead glides between navigation items, resting on the current page.
+    function setUpBead() {
+      const nav = document.querySelector(".navbar .navbar-nav");
+      if (!nav || !window.matchMedia("(min-width: 576px)").matches) return;
+      const items = Array.from(nav.children).filter((li) => li.querySelector(".nav-link, button"));
+      const home = nav.querySelector(".nav-item.active");
+      const bead = document.createElement("li");
+      bead.className = "lg-nav-bead";
+      bead.setAttribute("aria-hidden", "true");
+      nav.prepend(bead);
+      nav.classList.add("lg-has-bead");
+
+      function moveTo(li) {
+        if (!li) {
+          bead.style.opacity = "0";
+          return;
+        }
+        const n = nav.getBoundingClientRect();
+        const r = li.getBoundingClientRect();
+        bead.style.opacity = "1";
+        bead.style.width = `${r.width}px`;
+        bead.style.transform = `translateX(${r.left - n.left}px)`;
+      }
+
+      items.forEach((li) => {
+        li.addEventListener("pointerenter", () => moveTo(li));
+        li.addEventListener("focusin", () => moveTo(li));
+      });
+      nav.addEventListener("pointerleave", () => moveTo(home));
+      nav.addEventListener("focusout", () => moveTo(home));
+      window.addEventListener("resize", () => moveTo(home));
+      document.fonts && document.fonts.ready.then(() => moveTo(home));
+      moveTo(home);
+    }
+
+    // 3. In Chromium, the small floating controls bend the photo behind their edges like a
+    //    lens, through an SVG displacement filter. Other browsers keep the plain blur.
+    function setUpLens() {
+      if (!navigator.userAgentData) return;
+      if (!CSS.supports("backdrop-filter", "url(#lg)")) return;
+      if (window.matchMedia("(prefers-reduced-transparency: reduce)").matches) return;
+
+      const NS = "http://www.w3.org/2000/svg";
+      const holder = document.createElementNS(NS, "svg");
+      holder.setAttribute("aria-hidden", "true");
+      holder.setAttribute("width", "0");
+      holder.setAttribute("height", "0");
+      holder.style.cssText = "position:absolute;width:0;height:0;overflow:hidden;pointer-events:none";
+      document.body.appendChild(holder);
+
+      // A ramp that is neutral (0.5) in the middle and pushes inward near both edges.
+      function ramp(channel, vertical, w, h, edge) {
+        const len = vertical ? h : w;
+        const f = Math.min(edge / len, 0.5) * 100;
+        const c = (v) => {
+          const x = Math.round(v * 255);
+          return channel === "r" ? `rgb(${x},0,0)` : `rgb(0,${x},0)`;
+        };
+        const stops = [
+          [0, 1],
+          [f * 0.3, 0.78],
+          [f, 0.5],
+          [100 - f, 0.5],
+          [100 - f * 0.3, 0.22],
+          [100, 0],
+        ]
+          .map(([o, v]) => `<stop offset="${o}%" stop-color="${c(v)}"/>`)
+          .join("");
+        const dir = vertical ? 'x2="0" y2="1"' : 'x2="1" y2="0"';
+        const svg =
+          `<svg xmlns="${NS}" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">` +
+          `<linearGradient id="g" x1="0" y1="0" ${dir}>${stops}</linearGradient>` +
+          `<rect width="${w}" height="${h}" fill="url(#g)"/></svg>`;
+        return "data:image/svg+xml," + encodeURIComponent(svg);
+      }
+
+      const targets = [
+        { sel: ".navbar .navbar-nav", edge: 16, blur: 2.5, strength: 0.9 },
+        { sel: ".navbar .navbar-brand", edge: 14, blur: 2.5, strength: 0.9 },
+        { sel: ".page-toc", edge: 18, blur: 7, strength: 0.8 },
+        { sel: "#back-to-top", edge: 12, blur: 3, strength: 0.8 },
+      ];
+
+      let n = 0;
+      targets.forEach((t) => {
+        const el = document.querySelector(t.sel);
+        if (!el) return;
+        const id = `lg-lens-${n++}`;
+        const filter = document.createElementNS(NS, "filter");
+        filter.id = id;
+        filter.setAttribute("filterUnits", "userSpaceOnUse");
+        filter.setAttribute("color-interpolation-filters", "sRGB");
+        holder.appendChild(filter);
+
+        function build() {
+          const w = Math.round(el.offsetWidth);
+          const h = Math.round(el.offsetHeight);
+          if (!w || !h) return;
+          const edge = Math.min(t.edge, w / 2, h / 2);
+          filter.setAttribute("x", "0");
+          filter.setAttribute("y", "0");
+          filter.setAttribute("width", w);
+          filter.setAttribute("height", h);
+          filter.innerHTML =
+            `<feImage href="${ramp("r", false, w, h, edge)}" x="0" y="0" width="${w}" height="${h}" preserveAspectRatio="none" result="h"/>` +
+            `<feImage href="${ramp("g", true, w, h, edge)}" x="0" y="0" width="${w}" height="${h}" preserveAspectRatio="none" result="v"/>` +
+            `<feComposite in="h" in2="v" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="map"/>` +
+            `<feDisplacementMap in="SourceGraphic" in2="map" scale="${(edge * 2 * t.strength).toFixed(1)}" xChannelSelector="R" yChannelSelector="G" result="bent"/>` +
+            `<feGaussianBlur in="bent" stdDeviation="${t.blur}"/>`;
+          const value = `url(#${id}) saturate(180%) brightness(1.06)`;
+          el.style.backdropFilter = value;
+          el.style.webkitBackdropFilter = value;
+        }
+
+        build();
+        if (window.ResizeObserver) new ResizeObserver(build).observe(el);
+      });
+    }
+
+    function start() {
+      setUpBead();
+      setUpLens();
+      queue();
+    }
+    // The back-to-top button is added by another script, so wait for the page to finish loading.
+    if (document.readyState === "complete") start();
+    else window.addEventListener("load", start);
+  })();
+</script>
+
   </body>
 </html>
