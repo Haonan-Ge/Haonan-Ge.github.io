@@ -955,7 +955,7 @@ html[data-theme="dark"] {
   border-radius: inherit;
   pointer-events: none;
   background: linear-gradient(
-    var(--lg-a, 135deg),
+    var(--lg-a, 150deg),
     var(--lg-rim-hi) 0%,
     var(--lg-rim-cool) 7%,
     var(--lg-rim-mid) 14%,
@@ -978,15 +978,17 @@ html[data-theme="dark"] {
   box-shadow:
     0 0 0 0.5px var(--lg-outline),
     inset 0 0 0 1px var(--lg-edge),
-    inset calc(var(--lg-lx, -0.5) * -3px) calc(var(--lg-ly, -0.85) * -3px) 3px -1px var(--lg-bevel-hi),
-    inset calc(var(--lg-lx, -0.5) * 3px) calc(var(--lg-ly, -0.85) * 3px) 4px -1px var(--lg-bevel-lo),
+    inset calc(var(--lg-lx, -0.5) * -3px) calc(var(--lg-ly, -0.87) * -3px) 3px -1px var(--lg-bevel-hi),
+    inset calc(var(--lg-lx, -0.5) * 3px) calc(var(--lg-ly, -0.87) * 3px) 4px -1px var(--lg-bevel-lo),
     inset 0 0 $glow var(--lg-glow),
     inset 0 -14px 24px -18px var(--lg-depth),
     0 1px 2px var(--lg-shadow),
     0 12px 32px -8px var(--lg-shadow);
 }
 
-// A glass card or control: fill, blur, edge glow, shadow and rim
+// A glass card or control: fill, blur, edge glow, shadow and rim. Cards inside the page
+// sheet pass $blur: null: the sheet has already blurred the photo behind them, and a second
+// live blur per card would have to be redrawn on every frame of scrolling.
 @mixin lg-surface($blur: 12px, $radius: 22px) {
   position: relative;
   isolation: isolate;
@@ -996,12 +998,14 @@ html[data-theme="dark"] {
   // along the far edge (the glass is thicker there), a glare where the light falls
   // (--lg-sx/--lg-sy, set by script), and the tinted fill
   background:
-    linear-gradient(var(--lg-a, 135deg), var(--lg-bevel) 0, transparent 9%),
-    linear-gradient(var(--lg-a, 135deg), transparent 80%, var(--lg-shade) 100%),
-    radial-gradient(ellipse 65% 55% at var(--lg-sx, 15%) var(--lg-sy, 0%), var(--lg-glare), transparent 70%),
-    linear-gradient(var(--lg-a, 135deg), var(--lg-fill-a), var(--lg-fill-b));
-  -webkit-backdrop-filter: blur($blur) saturate(240%) brightness(1.03);
-  backdrop-filter: blur($blur) saturate(240%) brightness(1.03);
+    linear-gradient(var(--lg-a, 150deg), var(--lg-bevel) 0, transparent 9%),
+    linear-gradient(var(--lg-a, 150deg), transparent 80%, var(--lg-shade) 100%),
+    radial-gradient(ellipse 65% 55% at var(--lg-sx, 21%) var(--lg-sy, 0%), var(--lg-glare), transparent 70%),
+    linear-gradient(var(--lg-a, 150deg), var(--lg-fill-a), var(--lg-fill-b));
+  @if $blur {
+    -webkit-backdrop-filter: blur($blur) saturate(240%) brightness(1.03);
+    backdrop-filter: blur($blur) saturate(240%) brightness(1.03);
+  }
   @include lg-shadows;
 
   &::before {
@@ -1134,8 +1138,8 @@ html[data-theme="dark"] {
     background:
       radial-gradient(1100px 520px at var(--lg-sx, 12%) var(--lg-sy, 0%), var(--glass-sheen), transparent 70%),
       linear-gradient(170deg, var(--glass-tint-top), var(--glass-tint-bottom));
-    -webkit-backdrop-filter: blur(26px) saturate(170%) brightness(1.04);
-    backdrop-filter: blur(26px) saturate(170%) brightness(1.04);
+    -webkit-backdrop-filter: blur(26px) saturate(200%) brightness(1.04);
+    backdrop-filter: blur(26px) saturate(200%) brightness(1.04);
     @include lg-shadows(40px);
   }
 
@@ -1153,7 +1157,7 @@ html[data-theme="dark"] {
 .post-home {
   // Internship note
   .home-note {
-    @include lg-surface(10px, 20px);
+    @include lg-surface(null, 20px);
     @include lg-interactive(false);
     border-left: none;
     padding: 0.95rem 1.4rem;
@@ -1170,7 +1174,7 @@ html[data-theme="dark"] {
     }
 
     a {
-      @include lg-surface(10px, 999px);
+      @include lg-surface(null, 999px);
       @include lg-interactive;
       display: inline-flex;
       align-items: center;
@@ -1188,7 +1192,7 @@ html[data-theme="dark"] {
     gap: 1.25rem;
 
     > div {
-      @include lg-surface(10px, 22px);
+      @include lg-surface(null, 22px);
       @include lg-interactive;
       padding: 1.25rem 1.4rem 1.35rem;
     }
@@ -1196,7 +1200,7 @@ html[data-theme="dark"] {
 
   // News inside one glass card
   .news {
-    @include lg-surface(10px, 22px);
+    @include lg-surface(null, 22px);
     @include lg-interactive(false);
     padding: 0.7rem 1.4rem;
 
@@ -1207,7 +1211,7 @@ html[data-theme="dark"] {
 
   // Each selected paper on its own glass card
   .publications ol.bibliography li {
-    @include lg-surface(10px, 22px);
+    @include lg-surface(null, 22px);
     @include lg-interactive;
     padding: 1.15rem 1.25rem;
     margin-bottom: 1rem;
@@ -1225,14 +1229,14 @@ html[data-theme="dark"] {
 
   // Services inside one glass card
   .services {
-    @include lg-surface(10px, 22px);
+    @include lg-surface(null, 22px);
     @include lg-interactive(false);
     padding: 1.1rem 1.4rem;
   }
 
   // Each previous lab on its own glass card
   .experience li {
-    @include lg-surface(10px, 22px);
+    @include lg-surface(null, 22px);
     @include lg-interactive;
     padding: 1rem 1.4rem;
     margin-bottom: 0.9rem;
