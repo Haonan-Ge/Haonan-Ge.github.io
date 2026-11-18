@@ -508,138 +508,37 @@
     <script>
   // Liquid glass behaviour (styles live at the end of _sass/_layout.scss)
   (function () {
-    // 1. A soft light follows the pointer across glass cards.
-    const CARDS = [
-      ".post-home .home-note",
-      ".post-home .home-links a",
-      ".post-home .interests > div",
-      ".post-home .news",
-      ".post-home .publications ol.bibliography li",
-      ".post-home .services",
-      ".post-home .experience li",
-    ].join(",");
-
-    document.addEventListener(
-      "pointermove",
-      (e) => {
-        const card = e.target.closest && e.target.closest(CARDS);
-        if (!card) return;
-        const r = card.getBoundingClientRect();
-        card.style.setProperty("--lg-x", `${e.clientX - r.left}px`);
-        card.style.setProperty("--lg-y", `${e.clientY - r.top}px`);
-      },
-      { passive: true }
-    );
-
-    // 1b. One light source for the glass. By default it sits above the top-left of the
-    //     window, which the stylesheet's fallback values already describe, so nothing runs
-    //     while the page scrolls. With a mouse, the light follows the pointer: each visible
-    //     surface gets the direction of the light (--lg-a, --lg-lx/--lg-ly) and where its
-    //     glare falls (--lg-sx/--lg-sy). On phones that report orientation, tilting the
-    //     device swings the light. Updates are held while the page is scrolling.
-    const GLASS = [
-      CARDS,
-      ".navbar .navbar-nav",
-      ".navbar .navbar-brand",
-      ".lg-nav-bead",
-      ".page-toc",
-      "#back-to-top",
-      "footer.sticky-bottom .container",
-    ].join(",");
-    const PROPS = ["--lg-a", "--lg-sx", "--lg-sy", "--lg-lx", "--lg-ly"];
     const root = document.documentElement;
-    let pointer = null;
-    let lit = [];
-    let queued = false;
+
+    // 1. The light on the glass sits above the top-left of the window, which the stylesheet
+    //    already describes, so moving the mouse restyles nothing. While the page scrolls,
+    //    .lg-scrolling switches hover effects off, so cards passing under a resting pointer
+    //    do not light up or lift.
     let scrolling = false;
     let scrollTimer = 0;
-
-    function clear(el) {
-      PROPS.forEach((p) => el.style.removeProperty(p));
-      el._lgKey = null;
-    }
-
-    function relight() {
-      queued = false;
-      if (scrolling) return;
-      if (!pointer) {
-        lit.forEach(clear);
-        lit = [];
-        return;
-      }
-      const lightX = pointer.x;
-      const lightY = pointer.y - 140;
-      const vh = window.innerHeight;
-      const next = [];
-      document.querySelectorAll(GLASS).forEach((el) => {
-        const r = el.getBoundingClientRect();
-        if (!r.width || r.bottom < 0 || r.top > vh) return;
-        next.push(el);
-        const dx = lightX - (r.left + r.width / 2);
-        const dy = lightY - (r.top + r.height / 2);
-        const angle = Math.round((Math.atan2(-dx, dy) * 180) / Math.PI);
-        // glare: under the light when it is over the surface, else on the nearest edge
-        const nx = dx / (r.width / 2);
-        const ny = dy / (r.height / 2);
-        const k = Math.max(1, Math.hypot(nx, ny));
-        const sx = Math.round(50 + (50 * nx) / k);
-        const sy = Math.round(50 + (50 * ny) / k);
-        const key = `${angle},${sx},${sy}`;
-        if (el._lgKey === key) return;
-        el._lgKey = key;
-        const d = Math.hypot(dx, dy) || 1;
-        el.style.setProperty("--lg-a", `${angle}deg`);
-        el.style.setProperty("--lg-sx", `${sx}%`);
-        el.style.setProperty("--lg-sy", `${sy}%`);
-        el.style.setProperty("--lg-lx", (dx / d).toFixed(2));
-        el.style.setProperty("--lg-ly", (dy / d).toFixed(2));
-      });
-      lit.forEach((el) => {
-        if (!next.includes(el)) clear(el);
-      });
-      lit = next;
-    }
-
-    function queue() {
-      if (queued) return;
-      queued = true;
-      requestAnimationFrame(relight);
-    }
-
-    document.addEventListener(
-      "pointermove",
-      (e) => {
-        if (e.pointerType !== "mouse") return;
-        pointer = { x: e.clientX, y: e.clientY };
-        queue();
-      },
-      { passive: true }
-    );
-    root.addEventListener("pointerleave", () => {
-      pointer = null;
-      queue();
-    });
     window.addEventListener(
       "scroll",
       () => {
-        scrolling = true;
+        if (!scrolling) {
+          scrolling = true;
+          root.classList.add("lg-scrolling");
+        }
         clearTimeout(scrollTimer);
         scrollTimer = setTimeout(() => {
           scrolling = false;
-          if (pointer) queue();
+          root.classList.remove("lg-scrolling");
         }, 150);
       },
       { passive: true }
     );
-    window.addEventListener("resize", queue);
 
-    // Device tilt sets one light direction for the whole page, in 10-degree steps so small
-    // hand movements do not repaint anything.
+    // On phones that report orientation, tilting the device swings the light for the whole
+    // page, in 10-degree steps so small hand movements do not repaint anything.
     let tiltKey = "";
     window.addEventListener(
       "deviceorientation",
       (e) => {
-        if (pointer || scrolling || e.gamma == null || e.beta == null) return;
+        if (scrolling || e.gamma == null || e.beta == null) return;
         const gx = Math.max(-1, Math.min(1, e.gamma / 45));
         const gy = Math.max(-1, Math.min(1, (e.beta - 45) / 45));
         const raw = (Math.atan2(0.5 - gx * 0.8, -0.87 + gy * 0.6) * 180) / Math.PI;
