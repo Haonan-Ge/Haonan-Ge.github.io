@@ -24,7 +24,7 @@ latest_posts:
 <section class="home-bio">
   <p>
     I am a CS Ph.D. student at the <a href="https://www.ucsb.edu/">University of California, Santa Barbara</a><img class="inst-logo" src="/assets/img/ucsb.png" alt="">, advised by
-    <a href="https://yaoqin1.github.io/#about">Prof. Yao Qin</a>. I received my bachelor's degree in Electrical and Computer
+    <a href="https://yaoqin1.github.io/#about">Prof. Yao Qin</a> and <a href="https://dong-zhen.com/">Prof. Zhen Dong</a>. I received my bachelor's degree in Electrical and Computer
     Engineering from <a href="https://www.seu.edu.cn/english/">Southeast University</a><img class="inst-logo" src="/assets/img/seu.png" alt="">.
   </p>
   <p>
