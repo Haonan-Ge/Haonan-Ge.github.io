@@ -885,9 +885,11 @@ html[data-theme="dark"] .post-home {
  *   - a thin rim of light, brightest at the top-left and bottom-right corners,
  *   - a soft inner glow along the edges (the thickness of the glass) and a faint
  *     shade along the bottom (its curvature),
- *   - a floating shadow, and on cards a highlight that follows the pointer.
- * _includes/liquid_glass.liquid adds the pointer highlight, the sliding nav
- * selector and, in Chromium, edge refraction for the small floating controls.
+ *   - a floating shadow, and on cards a soft highlight on hover.
+ * The light comes from above the top-left of the window. _includes/liquid_glass.liquid
+ * adds the sliding nav selector, turns hover off while the page scrolls, swings the light
+ * when a phone is tilted and, in Chromium, bends the photo at the edges of the small
+ * floating controls.
  ******************************************************************************/
 
 :root {
@@ -944,7 +946,7 @@ html[data-theme="dark"] {
   --lg-shade: rgba(0, 0, 0, 0.18);
 }
 
-// The ring of light around a glass edge, drawn on a pseudo-element. --lg-a (set by script)
+// The ring of light around a glass edge, drawn on a pseudo-element. --lg-a (changed by tilt)
 // points away from the light, so the edge facing the light is brightest and the far edge
 // catches a weaker reflection, as on a real piece of glass.
 @mixin lg-rim-layer($w: 1.5px) {
@@ -972,7 +974,7 @@ html[data-theme="dark"] {
   mask-composite: exclude;
 }
 
-// --lg-lx/--lg-ly (set by script) is the direction of the light, so the inner edge facing it
+// --lg-lx/--lg-ly (changed by tilt) is the direction of the light, so the inner edge facing it
 // catches a bright bevel and the opposite inner edge falls into shade, like thick glass
 @mixin lg-shadows($glow: 22px) {
   box-shadow:
@@ -996,7 +998,7 @@ html[data-theme="dark"] {
   border-radius: $radius;
   // Layers, top to bottom: a bright bevel along the edge facing the light, a faint shade
   // along the far edge (the glass is thicker there), a glare where the light falls
-  // (--lg-sx/--lg-sy, set by script), and the tinted fill
+  // (--lg-sx/--lg-sy, changed by tilt), and the tinted fill
   background:
     linear-gradient(var(--lg-a, 150deg), var(--lg-bevel) 0, transparent 9%),
     linear-gradient(var(--lg-a, 150deg), transparent 80%, var(--lg-shade) 100%),
@@ -1013,11 +1015,12 @@ html[data-theme="dark"] {
   }
 }
 
-// Soft light under the pointer (position set by script), plus a springy lift
+// On hover, a soft light near the top of the card, plus a springy lift. Nothing tracks the
+// pointer, and hover is ignored while the page scrolls (.lg-scrolling, set by script).
 @mixin lg-interactive($lift: true) {
-  transition:
-    transform 0.55s cubic-bezier(0.3, 1.5, 0.5, 1),
-    box-shadow 0.3s ease;
+  @if $lift {
+    transition: transform 0.55s cubic-bezier(0.3, 1.5, 0.5, 1);
+  }
 
   &::after {
     content: "";
@@ -1026,17 +1029,17 @@ html[data-theme="dark"] {
     z-index: -1;
     border-radius: inherit;
     pointer-events: none;
-    background: radial-gradient(circle 14rem at var(--lg-x, 20%) var(--lg-y, 0%), var(--lg-light), transparent 70%);
+    background: radial-gradient(circle 14rem at 20% 0%, var(--lg-light), transparent 70%);
     opacity: 0;
     transition: opacity 0.35s ease;
   }
 
-  &:hover::after {
+  html:not(.lg-scrolling) &:hover::after {
     opacity: 1;
   }
 
   @if $lift {
-    &:hover {
+    html:not(.lg-scrolling) &:hover {
       transform: translateY(-2px);
     }
   }
