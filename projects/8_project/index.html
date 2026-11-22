@@ -4,7 +4,21 @@
   <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
-    <!-- Metadata, OpenGraph and Schema.org -->
+    <!-- Homepage motion (_includes/home_motion.liquid) marks the page before it paints, so content
+     can start hidden and rise in. If the motion script never runs, everything is shown. -->
+<script>
+  (function () {
+    var root = document.documentElement;
+    if (!("IntersectionObserver" in window)) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    root.classList.add("motion");
+    setTimeout(function () {
+      if (!window.__homeMotion) root.classList.remove("motion");
+    }, 3000);
+  })();
+</script>
+
+<!-- Metadata, OpenGraph and Schema.org -->
 
 
 
@@ -882,5 +896,6 @@ Here’s the code for the last row of images above:</p>
   })();
 </script>
 
+    
   </body>
 </html>

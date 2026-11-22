@@ -4,7 +4,21 @@
   <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
-    <!-- Metadata, OpenGraph and Schema.org -->
+    <!-- Homepage motion (_includes/home_motion.liquid) marks the page before it paints, so content
+     can start hidden and rise in. If the motion script never runs, everything is shown. -->
+<script>
+  (function () {
+    var root = document.documentElement;
+    if (!("IntersectionObserver" in window)) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    root.classList.add("motion");
+    setTimeout(function () {
+      if (!window.__homeMotion) root.classList.remove("motion");
+    }, 3000);
+  })();
+</script>
+
+<!-- Metadata, OpenGraph and Schema.org -->
 
 
 
@@ -413,21 +427,27 @@
 <h2 class="section-heading" id="research">Research Interests</h2>
 <div class="interests">
   <div>
-    <span class="interest-num">01</span>
+    <p class="interest-meta"><span>Interest <b>01</b></span><span>Stream → Memory</span></p>
+    <figure class="interest-viz"><svg class="iv iv-mem" viewbox="0 0 300 134" aria-hidden="true" focusable="false"><defs><clippath id="iv-window"><rect x="6" y="14" width="288" height="36" rx="7"></rect></clippath></defs><text class="iv-label" x="6" y="9">stream</text><g clip-path="url(#iv-window)"><rect class="iv-well" x="6" y="14" width="288" height="36" rx="7"></rect><g class="iv-strip"><g transform="translate(12 20)"><rect class="iv-frame" width="34" height="24" rx="3"></rect><g class="iv-pict"><path d="M4.5 19.5 L12 10 L16.6 15.4 L21 11.4 L29.5 19.5 Z"></path></g></g><g transform="translate(52 20)"><rect class="iv-frame" width="34" height="24" rx="3"></rect><g class="iv-pict"><circle cx="17" cy="7.4" r="2.6"></circle><path d="M17 10 V15.6 M13.4 12.6 H20.6 M17 15.6 L14.2 20 M17 15.6 L19.8 20"></path></g></g><g transform="translate(92 20)"><rect class="iv-frame" width="34" height="24" rx="3"></rect><g class="iv-pict"><circle cx="17" cy="10.5" r="4.2"></circle><path d="M5 19.5 H29"></path></g></g><g transform="translate(132 20)"><rect class="iv-frame" width="34" height="24" rx="3"></rect><g class="iv-pict"><path d="M7 17.5 V14.5 L10.5 10.5 H22 L26.5 14.5 V17.5 Z"></path><circle cx="11.5" cy="18" r="1.8"></circle><circle cx="22" cy="18" r="1.8"></circle></g></g><g transform="translate(172 20)"><rect class="iv-frame" width="34" height="24" rx="3"></rect><g class="iv-pict"><path d="M12 9.5 H20.5 V16 C20.5 17.8 19.3 19 17.5 19 H15 C13.2 19 12 17.8 12 16 Z M20.5 11.2 H22.6 C24.2 11.2 24.2 15.2 22.6 15.2 H20.5"></path><path d="M5 19.5 H29"></path></g></g><g transform="translate(212 20)"><rect class="iv-frame" width="34" height="24" rx="3"></rect><g class="iv-pict"><path d="M17 20 V14.5"></path><circle cx="17" cy="10.2" r="4.6"></circle><path d="M5 20 H29"></path></g></g><g transform="translate(252 20)"><rect class="iv-frame" width="34" height="24" rx="3"></rect><g class="iv-pict"><circle cx="17" cy="10.5" r="4.2"></circle><path d="M5 19.5 H29"></path></g></g><g transform="translate(292 20)"><rect class="iv-frame" width="34" height="24" rx="3"></rect><g class="iv-pict"><circle cx="17" cy="7.4" r="2.6"></circle><path d="M17 10 V15.6 M13.4 12.6 H20.6 M17 15.6 L14.2 20 M17 15.6 L19.8 20"></path></g></g><g transform="translate(332 20)"><rect class="iv-frame" width="34" height="24" rx="3"></rect><g class="iv-pict"><path d="M4.5 19.5 L12 10 L16.6 15.4 L21 11.4 L29.5 19.5 Z"></path></g></g><g transform="translate(372 20)"><rect class="iv-frame" width="34" height="24" rx="3"></rect><g class="iv-pict"><path d="M4.5 19.5 L12 10 L16.6 15.4 L21 11.4 L29.5 19.5 Z"></path></g></g><g transform="translate(412 20)"><rect class="iv-frame" width="34" height="24" rx="3"></rect><g class="iv-pict"><circle cx="17" cy="7.4" r="2.6"></circle><path d="M17 10 V15.6 M13.4 12.6 H20.6 M17 15.6 L14.2 20 M17 15.6 L19.8 20"></path></g></g><g transform="translate(452 20)"><rect class="iv-frame" width="34" height="24" rx="3"></rect><g class="iv-pict"><circle cx="17" cy="10.5" r="4.2"></circle><path d="M5 19.5 H29"></path></g></g><g transform="translate(492 20)"><rect class="iv-frame" width="34" height="24" rx="3"></rect><g class="iv-pict"><path d="M7 17.5 V14.5 L10.5 10.5 H22 L26.5 14.5 V17.5 Z"></path><circle cx="11.5" cy="18" r="1.8"></circle><circle cx="22" cy="18" r="1.8"></circle></g></g><g transform="translate(532 20)"><rect class="iv-frame" width="34" height="24" rx="3"></rect><g class="iv-pict"><path d="M12 9.5 H20.5 V16 C20.5 17.8 19.3 19 17.5 19 H15 C13.2 19 12 17.8 12 16 Z M20.5 11.2 H22.6 C24.2 11.2 24.2 15.2 22.6 15.2 H20.5"></path><path d="M5 19.5 H29"></path></g></g><g transform="translate(572 20)"><rect class="iv-frame" width="34" height="24" rx="3"></rect><g class="iv-pict"><path d="M17 20 V14.5"></path><circle cx="17" cy="10.2" r="4.6"></circle><path d="M5 20 H29"></path></g></g><g transform="translate(612 20)"><rect class="iv-frame" width="34" height="24" rx="3"></rect><g class="iv-pict"><circle cx="17" cy="10.5" r="4.2"></circle><path d="M5 19.5 H29"></path></g></g><g transform="translate(652 20)"><rect class="iv-frame" width="34" height="24" rx="3"></rect><g class="iv-pict"><circle cx="17" cy="7.4" r="2.6"></circle><path d="M17 10 V15.6 M13.4 12.6 H20.6 M17 15.6 L14.2 20 M17 15.6 L19.8 20"></path></g></g><g transform="translate(692 20)"><rect class="iv-frame" width="34" height="24" rx="3"></rect><g class="iv-pict"><path d="M4.5 19.5 L12 10 L16.6 15.4 L21 11.4 L29.5 19.5 Z"></path></g></g></g></g><path class="iv-now" d="M212 8 V56"></path><text class="iv-label iv-gold" x="216" y="9">now</text><text class="iv-label iv-skip" x="212" y="65" text-anchor="middle">skip · seen before</text><text class="iv-label" x="6" y="75">memory</text><g class="iv-slot" transform="translate(6 80)"><rect class="iv-slot-box" width="38" height="28" rx="5"></rect><g transform="translate(2 2)"><rect class="iv-frame " width="34" height="24" rx="3"></rect><g class="iv-pict "><circle cx="17" cy="10.5" r="4.2"></circle><path d="M5 19.5 H29"></path></g></g></g><g class="iv-slot" transform="translate(48 80)"><rect class="iv-slot-box" width="38" height="28" rx="5"></rect><g transform="translate(2 2)"><rect class="iv-frame " width="34" height="24" rx="3"></rect><g class="iv-pict "><circle cx="17" cy="7.4" r="2.6"></circle><path d="M17 10 V15.6 M13.4 12.6 H20.6 M17 15.6 L14.2 20 M17 15.6 L19.8 20"></path></g></g></g><g class="iv-slot iv-target" transform="translate(90 80)"><rect class="iv-slot-box" width="38" height="28" rx="5"></rect><g class="iv-kept"><g transform="translate(2 2)"><rect class="iv-frame iv-key" width="34" height="24" rx="3"></rect><g class="iv-pict iv-key"><path d="M12 9.5 H20.5 V16 C20.5 17.8 19.3 19 17.5 19 H15 C13.2 19 12 17.8 12 16 Z M20.5 11.2 H22.6 C24.2 11.2 24.2 15.2 22.6 15.2 H20.5"></path><path d="M5 19.5 H29"></path></g></g></g></g><g class="iv-slot iv-empty" transform="translate(132 80)"><rect class="iv-slot-box" width="38" height="28" rx="5"></rect></g><path class="iv-link" d="M178 91 C 160 91, 150 94, 129 94"></path><g class="iv-q"><rect class="iv-chip" x="178" y="80" width="116" height="22" rx="11"></rect><text class="iv-text" x="187" y="94.5">Q: where's the cup?</text></g><g class="iv-a"><rect class="iv-chip iv-chip-gold" x="178" y="108" width="116" height="22" rx="11"></rect><text class="iv-text" x="187" y="122.5">A: on the table ✓</text></g></svg></figure>
     <h3>Video Understanding and Memory for Multimodal LLMs</h3>
+    <p class="interest-q">What should a model remember from a video that never stops?</p>
     <p>
       I build multimodal LLMs that perceive, remember, and reason over long and streaming video: deciding what to keep in memory,
       which frames to look at, and how to ground answers in visual evidence rather than language priors.
     </p>
+    <p class="interest-tags"><span>streaming video</span><span>memory</span><span>grounding</span><span>MLLMs</span></p>
   </div>
   <div>
-    <span class="interest-num">02</span>
+    <p class="interest-meta"><span>Interest <b>02</b></span><span>Imagine → Act</span></p>
+    <figure class="interest-viz"><svg class="iv iv-act" viewbox="0 0 300 134" aria-hidden="true" focusable="false"><defs><pattern id="iv-dots" width="13" height="13" patternunits="userSpaceOnUse"><circle cx="2" cy="2" r=".9"></circle></pattern></defs><rect class="iv-floor" x="0" y="14" width="300" height="120" fill="url(#iv-dots)"></rect><text class="iv-label iv-status" x="6" y="9">imagine 3 futures → act</text><g class="iv-block"><rect x="112" y="52" width="40" height="36" rx="4"></rect><path d="M119 59 L145 81 M119 70 L133 81 M131 59 L145 70"></path></g><g class="iv-block"><rect x="172" y="78" width="52" height="22" rx="4"></rect><path d="M179 83 L193 95 M191 83 L205 95 M203 83 L217 95"></path></g><g class="iv-goal" transform="translate(268 56)"><circle class="iv-ring" r="10"></circle><circle class="iv-dot" r="3.4"></circle></g><text class="iv-label iv-gold" x="268" y="80" text-anchor="middle">goal</text><path class="iv-path iv-bad" d="M46 98 C 70 92, 92 82, 111 76"></path><path class="iv-x" d="M107 72 L115 80 M115 72 L107 80"></path><text class="iv-label iv-bad-label" x="80" y="71" text-anchor="middle">collides</text><path class="iv-path iv-long" d="M46 102 C 100 140, 228 136, 262 66"></path><text class="iv-label iv-long-label" x="150" y="131" text-anchor="middle">too long</text><path class="iv-path iv-best" d="M46 96 C 80 36, 190 20, 258 54"></path><text class="iv-label iv-gold iv-best-label" x="160" y="27" text-anchor="middle">best</text><g class="iv-bot" transform="translate(20 71.75)"><g transform="scale(.5)"><g class="hm-leg hm-far hm-la"><path class="hm-dl hm-thigh" d="M30 33 L27.4 44.5 L30.6 55.6"></path><path class="hm-dl" d="M28.6 56.4 H32.6"></path><circle class="hm-df hm-knee" cx="27.4" cy="44.5" r="1.6"></circle></g><g class="hm-leg hm-far hm-lb"><path class="hm-dl hm-thigh" d="M60 33 L57.4 44.5 L60.6 55.6"></path><path class="hm-dl" d="M58.6 56.4 H62.6"></path><circle class="hm-df hm-knee" cx="57.4" cy="44.5" r="1.6"></circle></g><path class="hm-dl hm-thin" d="M22.5 22 C18.5 20.5 16.5 16.5 17.4 12.4"></path><circle class="hm-led" cx="17.4" cy="11" r="1.5"></circle><path class="hm-df" d="M21 24 C21 20.2 24 18 28 18 L64 18 C68 18 71 20.2 71 24 L71 29.5 C71 32.8 68.5 35 65 35 L27 35 C23.5 35 21 32.8 21 29.5 Z"></path><path class="hm-dl hm-thin" d="M35 19 V34 M57 19 V34"></path><path class="hm-dl" d="M70.5 22.5 L74 21"></path><path class="hm-df" d="M72.5 15 C72.5 12.6 74.2 11 76.5 11 L86 11 C88.4 11 90 12.7 90 15 L90 22 C90 24.4 88.3 26 86 26 L76.5 26 C74.2 26 72.5 24.4 72.5 22 Z"></path><path class="hm-dk" d="M79.5 15.2 H88.3 V19.8 H79.5 Z"></path><rect class="hm-eye" x="84.6" y="16.3" width="2.6" height="2.4" rx=".6"></rect><g class="hm-leg hm-lc"><path class="hm-dl hm-thigh" d="M36 33 L33.4 44.5 L36.6 55.6"></path><path class="hm-dl" d="M34.6 56.4 H38.6"></path><circle class="hm-df hm-knee" cx="33.4" cy="44.5" r="1.6"></circle></g><g class="hm-leg hm-ld"><path class="hm-dl hm-thigh" d="M66 33 L63.4 44.5 L66.6 55.6"></path><path class="hm-dl" d="M64.6 56.4 H68.6"></path><circle class="hm-df hm-knee" cx="63.4" cy="44.5" r="1.6"></circle></g></g></g></svg></figure>
     <h3>Embodied Agents and World Models</h3>
+    <p class="interest-q">Can an agent foresee what its actions will do, and pick the one that works?</p>
     <p>
       I study agents that turn perception into action: robot-use agents that learn which way of acting (direct motion, motion
       planning, control programs, or VLA policies) they can execute reliably and cheaply, and world models that let them anticipate
       the consequences of their actions.
     </p>
+    <p class="interest-tags"><span>robot-use agents</span><span>world models</span><span>planning</span><span>VLA</span></p>
   </div>
 </div>
 </div>
@@ -2079,5 +2099,259 @@
   })();
 </script>
 
+    
+      <script>
+  // Homepage motion (styles at the end of _sass/_layout.scss). head.liquid adds html.motion
+  // before the page paints, unless the visitor asks for reduced motion.
+  (function () {
+    window.__homeMotion = true;
+    const root = document.documentElement;
+    if (!root.classList.contains("motion")) return;
+
+    // 1. Content rises into place the first time it enters the window. Neighbours that
+    //    arrive together follow one another by a beat.
+    const REVEAL = [
+      ".post-home .section-heading",
+      ".post-home .interests > div",
+      ".post-home .news",
+      ".post-home .publications ol.bibliography > li",
+      ".post-home .publications > .text-muted",
+      ".post-home .services",
+      ".post-home .experience > li",
+      ".post-home .misc-lead",
+      ".post-home .photo-row",
+    ].join(",");
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        let n = 0;
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          e.target.style.setProperty("--hm-d", `${Math.min(n++, 5) * 70}ms`);
+          e.target.classList.add("hm-in");
+          io.unobserve(e.target);
+        });
+      },
+      { rootMargin: "0px 0px -6% 0px", threshold: 0.06 }
+    );
+    document.querySelectorAll(REVEAL).forEach((el) => io.observe(el));
+
+    // 2. Two small hand-drawn robots. One sits on top of the photo, swinging its legs over
+    //    the edge (click it and it hops and says something); a robot dog patrols the top of
+    //    the note card. Their outlines wobble slightly, like frames of a hand-drawn
+    //    animation, through one shared SVG filter. Everything pauses while off screen.
+    function setUpDoodles() {
+      const profile = document.querySelector(".post-home .profile");
+      const note = document.querySelector(".post-home .home-note");
+      if (!profile && !note) return;
+
+      const defs = document.createElement("div");
+      defs.innerHTML =
+        '<svg class="hm-defs" width="0" height="0" aria-hidden="true" focusable="false"><defs>' +
+        '<filter id="hm-boil" x="-20%" y="-20%" width="140%" height="140%">' +
+        '<feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="3" result="n">' +
+        '<animate attributeName="seed" values="3;7;11;15" dur=".72s" calcMode="discrete" repeatCount="indefinite"/>' +
+        "</feTurbulence>" +
+        '<feDisplacementMap in="SourceGraphic" in2="n" scale="1.8" xChannelSelector="R" yChannelSelector="G"/>' +
+        "</filter></defs></svg>";
+      const holder = defs.firstChild;
+      document.body.appendChild(holder);
+
+      const doodles = [];
+
+      if (profile) {
+        const sitter = document.createElement("div");
+        sitter.className = "hm-sitter";
+        sitter.setAttribute("aria-hidden", "true");
+        sitter.innerHTML =
+          '<span class="hm-say">hello, world</span>' +
+          '<svg viewBox="0 -4 64 66"><g filter="url(#hm-boil)"><g class="hm-sb">' +
+          '<path class="hm-dl hm-leg hm-l1" d="M25 45 C25 50 24.5 54 23.5 58 L20.5 58.6"/>' +
+          '<path class="hm-dl hm-leg hm-l2" d="M39 45 C39 50 39.5 54 40.5 58 L43.5 58.6"/>' +
+          '<path class="hm-df" d="M19 33 C19 31.5 20.5 30.5 22 30.5 L42 30.5 C43.5 30.5 45 31.5 45 33 L45.5 46 L18.5 46 Z"/>' +
+          '<path class="hm-dl hm-thin" d="M23 36.5 H31.5 M23 40 H28.5"/>' +
+          '<circle class="hm-led" cx="40" cy="38.2" r="1.7"/>' +
+          '<path class="hm-dl" d="M19 34 C15.5 37 14.2 41 14.6 46"/>' +
+          '<path class="hm-dl hm-arm-r" d="M45 34 C48.5 37 49.8 41 49.4 46"/>' +
+          '<path class="hm-dl" d="M32 30.5 V27.6"/>' +
+          '<g class="hm-head">' +
+          '<g class="hm-ant"><path class="hm-dl" d="M32 6 V1"/><circle class="hm-df" cx="32" cy="-0.6" r="2"/></g>' +
+          '<path class="hm-df" d="M15 11 C15 7.6 17.5 6 21 6 L43 6 C46.5 6 49 7.6 49 11 L49 23 C49 26.4 46.5 28 43 28 L21 28 C17.5 28 15 26.4 15 23 Z"/>' +
+          '<path class="hm-dk" d="M20 12.6 C20 11.4 20.9 10.6 22 10.6 L42 10.6 C43.1 10.6 44 11.4 44 12.6 L44 19.4 C44 20.6 43.1 21.4 42 21.4 L22 21.4 C20.9 21.4 20 20.6 20 19.4 Z"/>' +
+          '<g class="hm-eyes"><rect class="hm-eye" x="25" y="14" width="4" height="4" rx="1"/><rect class="hm-eye" x="35" y="14" width="4" height="4" rx="1"/></g>' +
+          '<path class="hm-dl hm-thin" d="M15 14.5 H12.4 M15 18.5 H12.4 M49 14.5 H51.6 M49 18.5 H51.6"/>' +
+          "</g></g></g></svg>";
+        profile.appendChild(sitter);
+        doodles.push(sitter);
+
+        const LINES = ["hello, world", "ack.", "running…", "200 OK", "sim2real: ok", "back to work"];
+        let n = 0;
+        let quiet = 0;
+        sitter.addEventListener("click", () => {
+          sitter.querySelector(".hm-say").textContent = LINES[n++ % LINES.length];
+          sitter.classList.remove("hm-hop");
+          void sitter.offsetWidth;
+          sitter.classList.add("hm-hop", "hm-talk");
+          clearTimeout(quiet);
+          quiet = setTimeout(() => sitter.classList.remove("hm-talk"), 1800);
+        });
+      }
+
+      if (note) {
+        const walk = document.createElement("div");
+        walk.className = "hm-walk";
+        walk.setAttribute("aria-hidden", "true");
+        walk.innerHTML =
+          '<div class="hm-walk-path"><div class="hm-dog">' +
+          '<svg viewBox="0 0 96 58"><g filter="url(#hm-boil)">' +
+          '<g class="hm-leg hm-far hm-la"><path class="hm-dl hm-thigh" d="M30 33 L27.4 44.5 L30.6 55.6"/><path class="hm-dl" d="M28.6 56.4 H32.6"/><circle class="hm-df hm-knee" cx="27.4" cy="44.5" r="1.6"/></g>' +
+          '<g class="hm-leg hm-far hm-lb"><path class="hm-dl hm-thigh" d="M60 33 L57.4 44.5 L60.6 55.6"/><path class="hm-dl" d="M58.6 56.4 H62.6"/><circle class="hm-df hm-knee" cx="57.4" cy="44.5" r="1.6"/></g>' +
+          '<g class="hm-wb">' +
+          '<path class="hm-dl hm-thin hm-mast" d="M22.5 22 C18.5 20.5 16.5 16.5 17.4 12.4"/>' +
+          '<circle class="hm-led" cx="17.4" cy="11" r="1.5"/>' +
+          '<path class="hm-df" d="M21 24 C21 20.2 24 18 28 18 L64 18 C68 18 71 20.2 71 24 L71 29.5 C71 32.8 68.5 35 65 35 L27 35 C23.5 35 21 32.8 21 29.5 Z"/>' +
+          '<path class="hm-dl hm-thin" d="M35 19 V34 M57 19 V34"/>' +
+          '<path class="hm-dl" d="M70.5 22.5 L74 21"/>' +
+          '<g class="hm-dog-head">' +
+          '<path class="hm-df" d="M72.5 15 C72.5 12.6 74.2 11 76.5 11 L86 11 C88.4 11 90 12.7 90 15 L90 22 C90 24.4 88.3 26 86 26 L76.5 26 C74.2 26 72.5 24.4 72.5 22 Z"/>' +
+          '<path class="hm-dk" d="M79.5 15.2 H88.3 V19.8 H79.5 Z"/>' +
+          '<rect class="hm-eye" x="84.6" y="16.3" width="2.6" height="2.4" rx=".6"/>' +
+          "</g></g>" +
+          '<g class="hm-leg hm-lc"><path class="hm-dl hm-thigh" d="M36 33 L33.4 44.5 L36.6 55.6"/><path class="hm-dl" d="M34.6 56.4 H38.6"/><circle class="hm-df hm-knee" cx="33.4" cy="44.5" r="1.6"/></g>' +
+          '<g class="hm-leg hm-ld"><path class="hm-dl hm-thigh" d="M66 33 L63.4 44.5 L66.6 55.6"/><path class="hm-dl" d="M64.6 56.4 H68.6"/><circle class="hm-df hm-knee" cx="63.4" cy="44.5" r="1.6"/></g>' +
+          "</g></svg></div></div>";
+        note.appendChild(walk);
+        doodles.push(walk);
+      }
+
+      // Pause the robots, and the shared wobble, while none of them is on screen
+      const shown = new Set();
+      const watch = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          e.target.classList.toggle("hm-off", !e.isIntersecting);
+          if (e.isIntersecting) shown.add(e.target);
+          else shown.delete(e.target);
+        });
+        if (shown.size) holder.unpauseAnimations();
+        else holder.pauseAnimations();
+      });
+      doodles.forEach((d) => watch.observe(d));
+    }
+
+    // 3. Research diagrams. The memory diagram loops in CSS; here it only pauses off screen.
+    //    The planning diagram is played step by step: the robot imagines three paths, one hits
+    //    an obstacle, one is too long, the best one turns gold, and the robot walks it.
+    function setUpDiagrams() {
+      const all = document.querySelectorAll(".post-home .iv");
+      if (!all.length) return;
+      const act = document.querySelector(".post-home .iv-act");
+      let play = null;
+      let stop = null;
+
+      if (act) {
+        const paths = Array.from(act.querySelectorAll(".iv-path"));
+        const best = act.querySelector(".iv-best");
+        const bot = act.querySelector(".iv-bot");
+        const status = act.querySelector(".iv-status");
+        const home = bot.getAttribute("transform");
+        const text = status.textContent;
+        const length = new Map(paths.map((p) => [p, p.getTotalLength()]));
+        let timers = [];
+        let frame = 0;
+        const at = (ms, fn) => timers.push(setTimeout(fn, ms));
+
+        const reset = () => {
+          act.classList.remove("iv-s2", "iv-s3", "iv-s4", "iv-s5", "iv-walking");
+          act.classList.add("iv-run");
+          paths.forEach((p) => {
+            p.style.transition = "none";
+            p.style.strokeDasharray = `${length.get(p)}`;
+            p.style.strokeDashoffset = `${length.get(p)}`;
+          });
+          bot.setAttribute("transform", home);
+          status.textContent = "imagine 3 futures…";
+          act.getBoundingClientRect();
+        };
+
+        const walk = () => {
+          act.classList.add("iv-walking");
+          const L = length.get(best);
+          let t0 = 0;
+          const step = (ts) => {
+            if (!t0) t0 = ts;
+            const k = Math.min(1, (ts - t0) / 2100);
+            const e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+            const p = best.getPointAtLength(e * L);
+            const q = best.getPointAtLength(Math.min(L, e * L + 3));
+            const tilt = Math.max(-16, Math.min(16, (Math.atan2(q.y - p.y, q.x - p.x) * 180) / Math.PI));
+            bot.setAttribute(
+              "transform",
+              `translate(${(p.x - 24).toFixed(1)} ${(p.y - 28.25).toFixed(1)}) rotate(${tilt.toFixed(1)} 24 28.25)`
+            );
+            if (k < 1) {
+              frame = requestAnimationFrame(step);
+              return;
+            }
+            frame = 0;
+            act.classList.remove("iv-walking");
+            act.classList.add("iv-s4");
+            status.textContent = "goal reached ✓";
+            at(2600, () => act.classList.add("iv-s5"));
+            at(3300, cycle);
+          };
+          frame = requestAnimationFrame(step);
+        };
+
+        const cycle = () => {
+          timers.forEach(clearTimeout);
+          timers = [];
+          reset();
+          at(250, () =>
+            paths.forEach((p, i) => {
+              p.style.transition = `stroke-dashoffset 0.9s cubic-bezier(0.4, 0, 0.2, 1) ${i * 0.16}s, stroke 0.4s, stroke-width 0.4s, opacity 0.4s`;
+              p.style.strokeDashoffset = "0";
+            })
+          );
+          at(1550, () => {
+            act.classList.add("iv-s2");
+            status.textContent = "1 collides · 1 too long";
+          });
+          at(2150, () => {
+            act.classList.add("iv-s3");
+            status.textContent = "act(best)";
+          });
+          at(2700, walk);
+        };
+
+        play = cycle;
+        stop = () => {
+          timers.forEach(clearTimeout);
+          timers = [];
+          if (frame) cancelAnimationFrame(frame);
+          frame = 0;
+          act.classList.remove("iv-walking");
+        };
+        // shown as the finished picture until it first comes into view
+        status.textContent = text;
+      }
+
+      const watch = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          e.target.classList.toggle("hm-off", !e.isIntersecting);
+          if (e.target === act) {
+            if (e.isIntersecting && play) play();
+            else if (stop) stop();
+          }
+        });
+      });
+      all.forEach((el) => watch.observe(el));
+    }
+
+    setUpDoodles();
+    setUpDiagrams();
+  })();
+</script>
+
+    
   </body>
 </html>
