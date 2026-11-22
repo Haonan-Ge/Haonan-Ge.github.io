@@ -1328,3 +1328,1044 @@ footer.sticky-bottom {
     background: var(--global-bg-color);
   }
 }
+
+/******************************************************************************
+ * Homepage motion. On load the header, bio and photo rise in one after another
+ * and the name catches a passing glint; further down, each section rises into
+ * place the first time it enters the window and its gold rule draws itself in.
+ * Only opacity and transforms animate, each element moves once (fill: backwards,
+ * so a finished animation leaves nothing behind for later style updates), and none of it
+ * applies to visitors who ask for reduced motion (html.motion is never set).
+ * Two small hand-drawn robots are added by _includes/home_motion.liquid.
+ ******************************************************************************/
+
+@keyframes hm-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes hm-rule {
+  from {
+    scale: 0 1;
+  }
+
+  to {
+    scale: 1 1;
+  }
+}
+
+@keyframes hm-glint {
+  from {
+    background-position: 100% 0;
+  }
+
+  to {
+    background-position: 0 0;
+  }
+}
+
+html.motion .post-home {
+  $hm-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  // Load: one element after another, top to bottom
+  .post-header > *,
+  .profile,
+  .home-bio > p,
+  .home-note {
+    animation: hm-rise 0.75s $hm-ease backwards;
+    animation-delay: calc(40ms + var(--hm-i, 0) * 60ms);
+  }
+
+  .home-name {
+    --hm-i: 1;
+  }
+
+  .home-role {
+    --hm-i: 2;
+  }
+
+  .profile,
+  .home-bio > p:nth-child(1) {
+    --hm-i: 3;
+  }
+
+  .home-bio > p:nth-child(2) {
+    --hm-i: 4;
+  }
+
+  .home-bio > p:nth-child(3) {
+    --hm-i: 5;
+  }
+
+  .home-bio > p:nth-child(4) {
+    --hm-i: 6;
+  }
+
+  .home-note {
+    --hm-i: 7;
+  }
+
+  // A gold glint passes across the name once it has settled
+  @supports (background-clip: text) or (-webkit-background-clip: text) {
+    .post-header .home-name {
+      background: linear-gradient(
+          100deg,
+          var(--global-text-color) 0 42%,
+          var(--home-gold) 50%,
+          var(--global-text-color) 58% 100%
+        )
+        0 0 / 260% 100% no-repeat;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation:
+        hm-rise 0.75s $hm-ease backwards,
+        hm-glint 1.5s 1s cubic-bezier(0.45, 0, 0.25, 1) backwards;
+      animation-delay: 100ms, 0.8s;
+    }
+
+    .home-name-cn {
+      -webkit-text-fill-color: currentColor;
+    }
+  }
+
+  // Scroll: sections rise in as they enter the window (classes set by script)
+  .section-heading,
+  .interests > div,
+  .news,
+  .publications ol.bibliography > li,
+  .publications > .text-muted,
+  .services,
+  .experience > li,
+  .misc-lead,
+  .photo-row {
+    &:not(.hm-in) {
+      opacity: 0;
+    }
+
+    &.hm-in {
+      animation: hm-rise 0.8s $hm-ease backwards;
+      animation-delay: var(--hm-d, 0ms);
+    }
+  }
+
+  .section-heading {
+    &::after {
+      transform-origin: left center;
+    }
+
+    &:not(.hm-in)::after {
+      scale: 0 1;
+    }
+
+    &.hm-in::after {
+      animation: hm-rule 0.9s $hm-ease backwards;
+      animation-delay: calc(var(--hm-d, 0ms) + 250ms);
+    }
+  }
+}
+
+@media print {
+  html.motion .post-home * {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+}
+
+// Hand-drawn robots: ink outlines on paper fill, gold indicator lights. Each part loops on
+// its own (legs, antenna, eyes, body), and a shared SVG filter makes the lines wobble.
+.hm-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+html.motion .post-home .home-note {
+  margin-top: 3.25rem;
+}
+
+.post-home {
+  .hm-sitter,
+  .hm-walk,
+  .iv-bot {
+    svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      overflow: visible;
+    }
+
+    .hm-dl {
+      fill: none;
+      stroke: var(--global-text-color);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .hm-df {
+      fill: var(--global-bg-color);
+      stroke: var(--global-text-color);
+      stroke-width: 2;
+      stroke-linejoin: round;
+    }
+
+    .hm-dk {
+      fill: var(--global-text-color);
+    }
+
+    .hm-thin {
+      stroke-width: 1.3;
+    }
+
+    .hm-eye,
+    .hm-led {
+      fill: var(--home-gold);
+    }
+
+    .hm-led {
+      animation: hm-pulse 2.4s ease-in-out infinite;
+    }
+  }
+
+  // A robot sitting on the photo's top edge, legs over the side
+  .hm-sitter {
+    position: absolute;
+    right: 18px;
+    bottom: calc(100% - 14px);
+    width: 56px;
+    z-index: 2;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+
+    .hm-l1 {
+      transform-origin: 25px 45px;
+      animation: hm-kick 1.7s ease-in-out infinite alternate;
+    }
+
+    .hm-l2 {
+      transform-origin: 39px 45px;
+      animation: hm-kick 1.7s ease-in-out infinite alternate-reverse;
+    }
+
+    .hm-ant {
+      transform-origin: 32px 6px;
+      animation: hm-sway 2.8s ease-in-out infinite alternate;
+    }
+
+    .hm-eyes {
+      transform-origin: 32px 16px;
+      animation: hm-blink 5.5s ease infinite;
+    }
+
+    .hm-head {
+      transform-origin: 32px 28px;
+      animation: hm-look 9s ease-in-out infinite;
+    }
+
+    .hm-arm-r {
+      transform-origin: 45px 34px;
+    }
+
+    &.hm-hop svg {
+      animation: hm-hop 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+
+    &.hm-hop .hm-arm-r {
+      animation: hm-wave 0.9s ease-in-out;
+    }
+  }
+
+  .hm-say {
+    position: absolute;
+    right: calc(100% - 6px);
+    top: -8px;
+    padding: 2px 8px;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 10.5px;
+    white-space: nowrap;
+    color: var(--global-text-color);
+    background: var(--global-bg-color);
+    border: 1px solid var(--global-divider-color);
+    border-radius: 10px 10px 2px 10px;
+    opacity: 0;
+    transform: translateY(4px);
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
+    pointer-events: none;
+  }
+
+  .hm-sitter:hover .hm-say,
+  .hm-sitter.hm-talk .hm-say {
+    opacity: 1;
+    transform: none;
+  }
+
+  // A robot dog patrolling the top of the note card, turning round at each end
+  .hm-walk {
+    position: absolute;
+    left: 22px;
+    right: 22px;
+    bottom: 100%;
+    margin-bottom: -2px;
+    pointer-events: none;
+  }
+
+  .hm-walk-path {
+    width: calc(100% - 74px);
+    animation: hm-patrol 44s linear infinite;
+  }
+
+  .hm-dog {
+    width: 74px;
+    animation: hm-face 44s linear infinite;
+
+    .hm-leg {
+      animation: hm-step 0.42s ease-in-out infinite alternate;
+    }
+
+    .hm-la {
+      transform-origin: 30px 33px;
+      animation-direction: alternate-reverse;
+    }
+
+    .hm-lb {
+      transform-origin: 60px 33px;
+    }
+
+    .hm-lc {
+      transform-origin: 36px 33px;
+    }
+
+    .hm-ld {
+      transform-origin: 66px 33px;
+      animation-direction: alternate-reverse;
+    }
+
+    .hm-far {
+      opacity: 0.45;
+    }
+
+    .hm-thigh {
+      stroke-width: 2.3;
+    }
+
+    .hm-knee {
+      stroke-width: 1.4;
+    }
+
+    .hm-wb {
+      animation: hm-bob 0.21s ease-in-out infinite alternate;
+    }
+
+    .hm-dog-head {
+      transform-origin: 74px 21px;
+      animation: hm-scan 6s ease-in-out infinite;
+    }
+  }
+}
+
+// Doodles pause while off screen (.hm-off, set by script). A custom property carries the
+// state down, so no catch-all selector has to be checked on every style update.
+.post-home {
+  .hm-off {
+    --hm-play: paused;
+  }
+
+  .hm-sitter,
+  .hm-walk,
+  .iv {
+    .hm-led,
+    .iv-strip,
+    .iv-kept,
+    .iv-skip,
+    .iv-q,
+    .iv-a,
+    .iv-link,
+    .iv-slot-box,
+    .hm-l1,
+    .hm-l2,
+    .hm-ant,
+    .hm-eyes,
+    .hm-head,
+    .hm-walk-path,
+    .hm-dog,
+    .hm-leg,
+    .hm-wb,
+    .hm-dog-head {
+      animation-play-state: var(--hm-play, running);
+    }
+  }
+}
+
+@keyframes hm-kick {
+  from {
+    transform: rotate(-9deg);
+  }
+
+  to {
+    transform: rotate(11deg);
+  }
+}
+
+@keyframes hm-sway {
+  from {
+    transform: rotate(-9deg);
+  }
+
+  to {
+    transform: rotate(9deg);
+  }
+}
+
+@keyframes hm-blink {
+  0%,
+  92%,
+  97%,
+  100% {
+    transform: scaleY(1);
+  }
+
+  94.5% {
+    transform: scaleY(0.1);
+  }
+}
+
+@keyframes hm-look {
+  0%,
+  35% {
+    transform: none;
+  }
+
+  42%,
+  55% {
+    transform: rotate(-5deg);
+  }
+
+  62%,
+  100% {
+    transform: none;
+  }
+}
+
+@keyframes hm-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes hm-hop {
+  0%,
+  100% {
+    transform: none;
+  }
+
+  35% {
+    transform: translateY(-9px);
+  }
+
+  65% {
+    transform: scale(1.05, 0.95);
+  }
+}
+
+@keyframes hm-wave {
+  0%,
+  100% {
+    transform: none;
+  }
+
+  25%,
+  75% {
+    transform: rotate(-70deg);
+  }
+
+  50% {
+    transform: rotate(-45deg);
+  }
+}
+
+@keyframes hm-step {
+  from {
+    transform: rotate(14deg);
+  }
+
+  to {
+    transform: rotate(-14deg);
+  }
+}
+
+@keyframes hm-bob {
+  to {
+    transform: translateY(-1.2px);
+  }
+}
+
+@keyframes hm-scan {
+  0%,
+  40% {
+    transform: none;
+  }
+
+  48%,
+  60% {
+    transform: rotate(6deg);
+  }
+
+  68%,
+  100% {
+    transform: none;
+  }
+}
+
+@keyframes hm-patrol {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes hm-face {
+  0%,
+  49.99% {
+    transform: none;
+  }
+
+  50%,
+  100% {
+    transform: scaleX(-1);
+  }
+}
+
+/******************************************************************************
+ * Research interest cards: a small diagram of each question, drawn in the same
+ * ink-and-gold line style as the robots. The markup (_includes/interest_viz.liquid)
+ * is the finished picture, which is what visitors see without motion; with
+ * motion, the memory diagram loops in CSS and the planning diagram is played by
+ * _includes/home_motion.liquid.
+ ******************************************************************************/
+
+.post-home .interests {
+  > div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .interest-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin: 0 0 0.75rem;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--global-text-color-light);
+
+    b {
+      font-weight: 600;
+      color: var(--home-gold);
+    }
+  }
+
+  .interest-viz {
+    margin: 0 0 1.05rem;
+    padding: 0.6rem 0.65rem 0.45rem;
+    border-radius: 14px;
+    border: 1px solid var(--global-divider-color);
+    background: color-mix(in srgb, var(--global-bg-color) 55%, transparent);
+
+    svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      overflow: visible;
+    }
+  }
+
+  h3 {
+    font-size: 1.22rem;
+    line-height: 1.3;
+  }
+
+  .interest-q {
+    margin: 0 0 0.6rem;
+    font-family: var(--home-serif);
+    font-style: italic;
+    font-size: 1rem;
+    line-height: 1.45;
+  }
+
+  .interest-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: auto;
+    padding-top: 0.95rem;
+
+    span {
+      padding: 0.18rem 0.65rem;
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.02em;
+      border: 1px solid var(--global-divider-color);
+      border-radius: 999px;
+    }
+  }
+}
+
+.post-home .iv {
+  --iv-red: #b4553c;
+
+  .iv-label {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 9px;
+    letter-spacing: 0.06em;
+    fill: var(--global-text-color-light);
+  }
+
+  .iv-text {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 9.2px;
+    fill: var(--global-text-color);
+  }
+
+  .iv-gold {
+    fill: var(--home-gold);
+  }
+
+  // Memory: a stream of frames, a playhead, a small memory and a question
+  .iv-well {
+    fill: color-mix(in srgb, var(--global-text-color) 5%, transparent);
+  }
+
+  .iv-frame {
+    fill: var(--global-bg-color);
+    stroke: var(--global-text-color);
+    stroke-width: 1.2;
+    stroke-opacity: 0.55;
+  }
+
+  .iv-pict {
+    fill: none;
+    stroke: var(--global-text-color);
+    stroke-width: 1.3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.8;
+  }
+
+  // the frame worth remembering
+  .iv-frame.iv-key {
+    fill: color-mix(in srgb, var(--home-gold) 14%, var(--global-bg-color));
+    stroke: var(--home-gold);
+    stroke-opacity: 1;
+  }
+
+  .iv-pict.iv-key {
+    stroke: var(--home-gold);
+    opacity: 1;
+  }
+
+  .iv-now {
+    stroke: var(--home-gold);
+    stroke-width: 1.4;
+    stroke-dasharray: 2 3;
+  }
+
+  .iv-skip {
+    opacity: 0;
+  }
+
+  .iv-slot-box {
+    fill: none;
+    stroke: var(--global-divider-color);
+    stroke-width: 1;
+  }
+
+  .iv-empty .iv-slot-box {
+    stroke-dasharray: 3 3;
+  }
+
+  .iv-target .iv-slot-box {
+    stroke: var(--home-gold);
+    stroke-width: 1.4;
+  }
+
+  .iv-chip {
+    fill: var(--global-bg-color);
+    stroke: var(--global-divider-color);
+  }
+
+  .iv-chip-gold {
+    fill: color-mix(in srgb, var(--home-gold) 10%, var(--global-bg-color));
+    stroke: var(--home-gold);
+  }
+
+  .iv-link {
+    fill: none;
+    stroke: var(--home-gold);
+    stroke-width: 1.2;
+    stroke-dasharray: 3 3;
+  }
+
+  // Planning: a floor, two obstacles, a goal and three imagined paths
+  pattern circle {
+    fill: var(--global-text-color);
+    opacity: 0.16;
+  }
+
+  .iv-block rect {
+    fill: var(--global-bg-color);
+    stroke: var(--global-text-color);
+    stroke-width: 1.6;
+  }
+
+  .iv-block path {
+    fill: none;
+    stroke: var(--global-text-color);
+    stroke-width: 0.8;
+    opacity: 0.35;
+  }
+
+  .iv-ring {
+    fill: none;
+    stroke: var(--home-gold);
+    stroke-width: 1.4;
+    transform-origin: 0 0;
+  }
+
+  .iv-dot {
+    fill: var(--home-gold);
+  }
+
+  .iv-path {
+    fill: none;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+  }
+
+  .iv-bad {
+    stroke: var(--iv-red);
+    stroke-dasharray: 4 4;
+  }
+
+  .iv-x {
+    fill: none;
+    stroke: var(--iv-red);
+    stroke-width: 1.8;
+    stroke-linecap: round;
+  }
+
+  .iv-bad-label {
+    fill: var(--iv-red);
+  }
+
+  .iv-long {
+    stroke: var(--global-text-color);
+    stroke-dasharray: 4 4;
+    opacity: 0.35;
+  }
+
+  .iv-best {
+    stroke: var(--home-gold);
+    stroke-width: 2.4;
+  }
+
+  .iv-bot {
+    transition: opacity 0.4s ease;
+  }
+
+  .hm-la {
+    transform-origin: 30px 33px;
+  }
+
+  .hm-lb {
+    transform-origin: 60px 33px;
+  }
+
+  .hm-lc {
+    transform-origin: 36px 33px;
+  }
+
+  .hm-ld {
+    transform-origin: 66px 33px;
+  }
+
+  .hm-far {
+    opacity: 0.45;
+  }
+
+  .hm-thigh {
+    stroke-width: 2.3;
+  }
+
+  .hm-knee {
+    stroke-width: 1.4;
+  }
+}
+
+// Motion for the diagrams
+html.motion .post-home .iv {
+  // Memory: frames stream past; one is kept and lands in memory, another is skipped;
+  // then a question pulls the kept frame back out. One loop every 10 s.
+  .iv-strip {
+    animation: iv-scroll 18s linear infinite;
+  }
+
+  .iv-kept {
+    animation: iv-keep 10s cubic-bezier(0.2, 0.7, 0.2, 1) infinite;
+  }
+
+  .iv-target .iv-slot-box {
+    animation: iv-hit 10s ease infinite;
+  }
+
+  .iv-skip {
+    animation: iv-skip 10s ease infinite;
+  }
+
+  .iv-q {
+    animation: iv-q 10s ease infinite;
+  }
+
+  .iv-link {
+    animation: iv-link 10s ease infinite;
+  }
+
+  .iv-a {
+    animation: iv-a 10s ease infinite;
+  }
+
+  // paused while off screen (see .hm-off above)
+  .iv-strip,
+  .iv-kept,
+  .iv-target .iv-slot-box,
+  .iv-skip,
+  .iv-q,
+  .iv-link,
+  .iv-a {
+    animation-play-state: var(--hm-play, running);
+  }
+}
+
+// Planning: the script adds .iv-run, then steps through .iv-s2 … .iv-s5
+.post-home .iv-act.iv-run {
+  .iv-path {
+    stroke: var(--global-text-color);
+    stroke-width: 1.3;
+    stroke-dasharray: none;
+    opacity: 0.45;
+    transition:
+      stroke 0.4s ease,
+      stroke-width 0.4s ease,
+      opacity 0.4s ease;
+  }
+
+  .iv-x,
+  .iv-bad-label,
+  .iv-long-label,
+  .iv-best-label {
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+
+  &.iv-s2 {
+    .iv-bad {
+      stroke: var(--iv-red);
+      opacity: 1;
+    }
+
+    .iv-x,
+    .iv-bad-label {
+      opacity: 1;
+    }
+  }
+
+  &.iv-s3 {
+    .iv-long {
+      opacity: 0.22;
+    }
+
+    .iv-best {
+      stroke: var(--home-gold);
+      stroke-width: 2.4;
+      opacity: 1;
+    }
+
+    .iv-long-label,
+    .iv-best-label {
+      opacity: 1;
+    }
+  }
+
+  &.iv-s4 .iv-ring {
+    animation: iv-ping 0.9s ease-out;
+  }
+
+  &.iv-s5 {
+    .iv-path,
+    .iv-x,
+    .iv-bad-label,
+    .iv-long-label,
+    .iv-best-label,
+    .iv-bot {
+      opacity: 0;
+    }
+  }
+
+  &.iv-walking .hm-leg {
+    animation: hm-step 0.3s ease-in-out infinite alternate;
+  }
+
+  &.iv-walking .hm-la,
+  &.iv-walking .hm-ld {
+    animation-direction: alternate-reverse;
+  }
+}
+
+@keyframes iv-scroll {
+  to {
+    transform: translateX(-360px);
+  }
+}
+
+@keyframes iv-keep {
+  0%,
+  6% {
+    opacity: 0;
+    transform: translate(105px, -60px);
+  }
+
+  10% {
+    opacity: 1;
+    transform: translate(105px, -60px);
+  }
+
+  24%,
+  90% {
+    opacity: 1;
+    transform: none;
+  }
+
+  96%,
+  100% {
+    opacity: 0;
+    transform: none;
+  }
+}
+
+@keyframes iv-hit {
+  0%,
+  56%,
+  68%,
+  100% {
+    stroke-width: 1.4;
+  }
+
+  60%,
+  64% {
+    stroke-width: 2.8;
+  }
+}
+
+@keyframes iv-skip {
+  0%,
+  32%,
+  48%,
+  100% {
+    opacity: 0;
+  }
+
+  36%,
+  44% {
+    opacity: 1;
+  }
+}
+
+@keyframes iv-q {
+  0%,
+  44% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  48%,
+  90% {
+    opacity: 1;
+    transform: none;
+  }
+
+  95%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes iv-link {
+  0%,
+  52% {
+    opacity: 0;
+  }
+
+  56%,
+  90% {
+    opacity: 1;
+  }
+
+  95%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes iv-a {
+  0%,
+  62% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  66%,
+  90% {
+    opacity: 1;
+    transform: none;
+  }
+
+  95%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes iv-ping {
+  0% {
+    transform: scale(1);
+  }
+
+  45% {
+    transform: scale(1.6);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}

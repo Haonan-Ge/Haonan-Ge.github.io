@@ -56,5 +56,8 @@
     <!-- JavaScripts -->
     {% include scripts.liquid %}
     {% include liquid_glass.liquid %}
+    {% if page.url == '/' %}
+      {% include home_motion.liquid %}
+    {% endif %}
   </body>
 </html>

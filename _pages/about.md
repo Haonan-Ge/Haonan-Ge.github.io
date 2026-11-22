@@ -49,20 +49,26 @@ latest_posts:
 <h2 class="section-heading" id="research">Research Interests</h2>
 <div class="interests">
   <div>
-    <span class="interest-num">01</span>
+    <p class="interest-meta"><span>Interest <b>01</b></span><span>Stream → Memory</span></p>
+    <figure class="interest-viz">{% include interest_viz.liquid kind="memory" %}</figure>
     <h3>Video Understanding and Memory for Multimodal LLMs</h3>
+    <p class="interest-q">What should a model remember from a video that never stops?</p>
     <p>
       I build multimodal LLMs that perceive, remember, and reason over long and streaming video: deciding what to keep in memory,
       which frames to look at, and how to ground answers in visual evidence rather than language priors.
     </p>
+    <p class="interest-tags"><span>streaming video</span><span>memory</span><span>grounding</span><span>MLLMs</span></p>
   </div>
   <div>
-    <span class="interest-num">02</span>
+    <p class="interest-meta"><span>Interest <b>02</b></span><span>Imagine → Act</span></p>
+    <figure class="interest-viz">{% include interest_viz.liquid kind="act" %}</figure>
     <h3>Embodied Agents and World Models</h3>
+    <p class="interest-q">Can an agent foresee what its actions will do, and pick the one that works?</p>
     <p>
       I study agents that turn perception into action: robot-use agents that learn which way of acting (direct motion, motion
       planning, control programs, or VLA policies) they can execute reliably and cheaply, and world models that let them anticipate
       the consequences of their actions.
     </p>
+    <p class="interest-tags"><span>robot-use agents</span><span>world models</span><span>planning</span><span>VLA</span></p>
   </div>
 </div>
