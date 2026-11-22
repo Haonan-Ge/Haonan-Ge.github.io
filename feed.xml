@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://haonan-ge.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://haonan-ge.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2026-11-22T02:09:47-08:00</updated><id>https://haonan-ge.github.io/feed.xml</id><title type="html">blank</title><subtitle>Haonan Ge (葛浩南) is a Computer Science Ph.D. student at the University of California, Santa Barbara (UCSB), working on multimodal large language models, video understanding, multimodal reasoning, and agentic AI.</subtitle><entry><title type="html">a post with plotly.js</title><link href="https://haonan-ge.github.io/blog/2025/plotly/" rel="alternate" type="text/html" title="a post with plotly.js" /><published>2025-03-26T07:24:00-07:00</published><updated>2025-03-26T07:24:00-07:00</updated><id>https://haonan-ge.github.io/blog/2025/plotly</id><content type="html" xml:base="https://haonan-ge.github.io/blog/2025/plotly/"><![CDATA[<p>This is an example post with some <a href="https://plotly.com/javascript/">plotly</a> code.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://haonan-ge.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://haonan-ge.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2026-11-22T02:16:09-08:00</updated><id>https://haonan-ge.github.io/feed.xml</id><title type="html">blank</title><subtitle>Haonan Ge (葛浩南) is a Computer Science Ph.D. student at the University of California, Santa Barbara (UCSB), working on multimodal large language models, video understanding, multimodal reasoning, and agentic AI.</subtitle><entry><title type="html">a post with plotly.js</title><link href="https://haonan-ge.github.io/blog/2025/plotly/" rel="alternate" type="text/html" title="a post with plotly.js" /><published>2025-03-26T07:24:00-07:00</published><updated>2025-03-26T07:24:00-07:00</updated><id>https://haonan-ge.github.io/blog/2025/plotly</id><content type="html" xml:base="https://haonan-ge.github.io/blog/2025/plotly/"><![CDATA[<p>This is an example post with some <a href="https://plotly.com/javascript/">plotly</a> code.</p>
 
 <div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">```</span><span class="nl">plotly
 </span><span class="sb">{
@@ -200,7 +200,7 @@ Content 2
 
 <p>With this you can generate visualizations like:</p>
 
-<ul id="log" class="tab" data-tab="aaa73701-0d00-4dab-8681-fc459fbe482c" data-name="log">
+<ul id="log" class="tab" data-tab="461728c0-7b7f-479f-8628-af089fbad818" data-name="log">
   
       <li class="active" id="log-php">
           <a href="#">php </a>
@@ -215,7 +215,7 @@ Content 2
       </li>
   
 </ul>
-<ul class="tab-content" id="aaa73701-0d00-4dab-8681-fc459fbe482c" data-name="log">
+<ul class="tab-content" id="461728c0-7b7f-479f-8628-af089fbad818" data-name="log">
   
       <li class="active">
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">var_dump</span><span class="p">(</span><span class="s1">'hello'</span><span class="p">);</span>
@@ -239,7 +239,7 @@ Content 2
 
 <h2 id="another-example">Another example</h2>
 
-<ul id="data-struct" class="tab" data-tab="8c6e37ba-1664-47a3-9f16-cdb8d9789d79" data-name="data-struct">
+<ul id="data-struct" class="tab" data-tab="c3457480-1b56-4cb8-b47e-f19889547ec9" data-name="data-struct">
   
       <li class="active" id="data-struct-yaml">
           <a href="#">yaml </a>
@@ -250,7 +250,7 @@ Content 2
       </li>
   
 </ul>
-<ul class="tab-content" id="8c6e37ba-1664-47a3-9f16-cdb8d9789d79" data-name="data-struct">
+<ul class="tab-content" id="c3457480-1b56-4cb8-b47e-f19889547ec9" data-name="data-struct">
   
       <li class="active">
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">hello</span><span class="pi">:</span>
@@ -272,7 +272,7 @@ Content 2
 
 <h2 id="tabs-for-something-else">Tabs for something else</h2>
 
-<ul id="something-else" class="tab" data-tab="c98f54b2-0bd2-44ce-85a1-ea9c6fb6cf4b" data-name="something-else">
+<ul id="something-else" class="tab" data-tab="49140830-9c53-479f-af41-af442bd18d3f" data-name="something-else">
   
       <li class="active" id="something-else-text">
           <a href="#">text </a>
@@ -287,7 +287,7 @@ Content 2
       </li>
   
 </ul>
-<ul class="tab-content" id="c98f54b2-0bd2-44ce-85a1-ea9c6fb6cf4b" data-name="something-else">
+<ul class="tab-content" id="49140830-9c53-479f-af41-af442bd18d3f" data-name="something-else">
   
       <li class="active">
 <p>Regular text</p>
