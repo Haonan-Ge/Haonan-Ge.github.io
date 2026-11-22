@@ -63,9 +63,8 @@ latest_posts:
     <figure class="interest-viz">{% include interest_viz.liquid kind="act" %}</figure>
     <h3>Embodied Agents and World Models</h3>
     <p>
-      I study agents that turn perception into action: robot-use agents that learn which way of acting (direct motion, motion
-      planning, control programs, or VLA policies) they can execute reliably and cheaply, and world models that let them anticipate
-      the consequences of their actions.
+      I work on Physical AI: embodied agents that plan and act efficiently in the real world, continually improve themselves
+      from their own experience, and use world models to imagine the consequences of their actions before acting.
     </p>
     <p class="interest-tags"><span>Embodied Agents</span><span>Self-Improvement</span><span>World Models</span></p>
   </div>
