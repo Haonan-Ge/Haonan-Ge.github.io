@@ -112,7 +112,7 @@
 
   <link rel="shortcut icon" href="/assets/img/icon.jpg?c7dc9e2135a6da41b267e5fcf682f42b">
 
-<link rel="stylesheet" href="/assets/css/main.css?d41d8cd98f00b204e9800998ecf8427e">
+<link rel="stylesheet" href="/assets/css/main.css?86f0516f7daf74abfb70533b6d9fdeb7">
 <link rel="canonical" href="https://haonan-ge.github.io/publications/">
 
 
@@ -670,7 +670,7 @@
 <div class="row">
   
     <div class="col col-sm-3 abbr">
-          <abbr class="badge venue-badge">NeurIPS</abbr>
+          <abbr class="badge venue-badge">arXiv</abbr>
         
       
       
@@ -742,10 +742,10 @@
     
     
     <div class="periodical">
-      <em>In NeurIPS</em>,  2026
+      <em>arXiv preprint arXiv:2602.00181</em>,  2026
     </div>
     <div class="periodical">
-      Under review.
+      
     </div>
 
     <!-- Links/Buttons -->
@@ -796,145 +796,6 @@
       <!-- Hidden abstract block -->
       <div class="abstract hidden">
         <p>Understanding camera dynamics is a fundamental pillar of video spatial intelligence. However, existing multimodal models predominantly treat this task as a black-box classification, often confusing physically distinct motions by relying on superficial visual patterns rather than geometric cues. We present CamReasoner, a framework that reformulates camera movement understanding as a structured inference process to bridge the gap between perception and cinematic logic. Our approach centers on the Observation-Thinking-Answer (O-T-A) paradigm, which compels the model to decode spatio-temporal cues such as trajectories and view frustums within an explicit reasoning block. To instill this capability, we construct a Large-scale Inference Trajectory Suite comprising 18k SFT reasoning chains and 38k RL feedback samples. Notably, we are the first to employ RL for logical alignment in this domain, ensuring motion inferences are grounded in physical geometry rather than contextual guesswork. By applying Reinforcement Learning to the Observation-Think-Answer (O-T-A) reasoning paradigm, CamReasoner effectively suppresses hallucinations and achieves state-of-the-art performance across multiple benchmarks.</p>
-      </div>
-    
-
-    
-
-    
-  </div>
-</div>
-</li>
-<li>
-<div class="row">
-  
-    <div class="col col-sm-3 abbr">
-          <abbr class="badge venue-badge">NeurIPS</abbr>
-        
-      
-      
-        
-          
-          
-
-
-
-<figure>
-  <picture>
-    <!-- Auto scaling with imagemagick -->
-    <!--
-      See https://www.debugbear.com/blog/responsive-images#w-descriptors-and-the-sizes-attribute and
-      https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images for info on defining 'sizes' for responsive images
-    -->
-    
-      
-    
-    <img src="/assets/img/publication_preview/Framemind.png" class="preview z-depth-1 rounded" width="100%" height="auto" alt="Framemind.png" data-zoomable="" loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
-  </picture>
-
-  
-</figure>
-
-        
-      
-    </div>
-  
-
-  <!-- Entry bib key -->
-  <div id="ge2025framemindframeinterleavedvideoreasoning" class="col-sm-9">
-    <!-- Title -->
-    <div class="title">FrameMind: Frame-Interleaved Video Reasoning via Reinforcement Learning</div>
-    <!-- Author -->
-    <div class="author">
-      
-
-      
-      <em>Haonan
-            Ge</em>, Yiwei
-            Wang, Kai-Wei
-            Chang, and
-        <span class="more-authors" title="click to view 2 more authors" onclick="
-              var element = $(this);
-              element.attr('title', '');
-              var more_authors_text = element.text() == '2 more authors' ? 'Hang Wu, Yujun Cai' : '2 more authors';
-              var cursorPosition = 0;
-              var textAdder = setInterval(function(){
-                element.html(more_authors_text.substring(0, cursorPosition + 1));
-                if (++cursorPosition == more_authors_text.length){
-                  clearInterval(textAdder);
-                }
-            }, '10');
-          ">2 more authors</span>
-      
-      
-    </div>
-
-    <!-- Journal/Book title and date -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <div class="periodical">
-      <em>In NeurIPS</em>,  2026
-    </div>
-    <div class="periodical">
-      Under review.
-    </div>
-
-    <!-- Links/Buttons -->
-    <div class="links">
-      
-      
-        <a class="abstract btn btn-sm z-depth-0" role="button">Abs</a>
-      
-      
-      
-        <a href="http://arxiv.org/abs/2509.24008" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">arXiv</a>
-      
-      
-      
-      
-        
-          <a href="https://www.arxiv.org/pdf/2509.24008" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">PDF</a>
-        
-      
-      
-      
-      
-      
-      
-      
-      
-        <a href="https://FrameMind.github.io" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Website</a>
-      
-    </div>
-    
-      
-      
-
-      
-      
-
-      
-      
-
-      
-      
-      
-    
-
-    
-
-    
-      <!-- Hidden abstract block -->
-      <div class="abstract hidden">
-        <p>Current video understanding models rely on fixed frame sampling strategies, processing predetermined visual inputs regardless of the specific reasoning requirements of each question. This static approach limits their ability to adaptively gather visual evidence, leading to suboptimal performance on tasks that require either broad temporal coverage or fine-grained spatial detail. In this paper, we introduce FrameMind, an end-to-end framework trained with reinforcement learning that enables models to dynamically request visual information during reasoning through Frame-Interleaved Chain-of-Thought (FiCOT). Unlike traditional approaches, FrameMind operates in multiple turns where the model alternates between textual reasoning and active visual perception, using tools to extract targeted frames or video clips based on identified knowledge gaps. To train effective dynamic sampling policies, we propose Dynamic Resolution Frame Sampling (DRFS), which exposes models to diverse temporal-spatial trade-offs during learning, and DRFS-GRPO, a group-relative policy optimization algorithm that learns from outcome-based rewards without requiring frame-level annotations. Extensive experiments on challenging benchmarks like MLVU and VideoMME demonstrate that our method significantly outperforms existing models, advancing the state of the art in flexible and efficient video understanding.</p>
       </div>
     
 
@@ -1084,6 +945,145 @@
 </ol>
 <h2 class="bibliography">2025</h2>
 <ol class="bibliography">
+<li>
+<div class="row">
+  
+    <div class="col col-sm-3 abbr">
+          <abbr class="badge venue-badge">arXiv</abbr>
+        
+      
+      
+        
+          
+          
+
+
+
+<figure>
+  <picture>
+    <!-- Auto scaling with imagemagick -->
+    <!--
+      See https://www.debugbear.com/blog/responsive-images#w-descriptors-and-the-sizes-attribute and
+      https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images for info on defining 'sizes' for responsive images
+    -->
+    
+      
+    
+    <img src="/assets/img/publication_preview/Framemind.png" class="preview z-depth-1 rounded" width="100%" height="auto" alt="Framemind.png" data-zoomable="" loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+  
+</figure>
+
+        
+      
+    </div>
+  
+
+  <!-- Entry bib key -->
+  <div id="ge2025framemindframeinterleavedvideoreasoning" class="col-sm-9">
+    <!-- Title -->
+    <div class="title">FrameMind: Frame-Interleaved Video Reasoning via Reinforcement Learning</div>
+    <!-- Author -->
+    <div class="author">
+      
+
+      
+      <em>Haonan
+            Ge</em>, Yiwei
+            Wang, Kai-Wei
+            Chang, and
+        <span class="more-authors" title="click to view 2 more authors" onclick="
+              var element = $(this);
+              element.attr('title', '');
+              var more_authors_text = element.text() == '2 more authors' ? 'Hang Wu, Yujun Cai' : '2 more authors';
+              var cursorPosition = 0;
+              var textAdder = setInterval(function(){
+                element.html(more_authors_text.substring(0, cursorPosition + 1));
+                if (++cursorPosition == more_authors_text.length){
+                  clearInterval(textAdder);
+                }
+            }, '10');
+          ">2 more authors</span>
+      
+      
+    </div>
+
+    <!-- Journal/Book title and date -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="periodical">
+      <em>arXiv preprint arXiv:2509.24008</em>,  2025
+    </div>
+    <div class="periodical">
+      
+    </div>
+
+    <!-- Links/Buttons -->
+    <div class="links">
+      
+      
+        <a class="abstract btn btn-sm z-depth-0" role="button">Abs</a>
+      
+      
+      
+        <a href="http://arxiv.org/abs/2509.24008" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">arXiv</a>
+      
+      
+      
+      
+        
+          <a href="https://www.arxiv.org/pdf/2509.24008" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">PDF</a>
+        
+      
+      
+      
+      
+      
+      
+      
+      
+        <a href="https://FrameMind.github.io" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Website</a>
+      
+    </div>
+    
+      
+      
+
+      
+      
+
+      
+      
+
+      
+      
+      
+    
+
+    
+
+    
+      <!-- Hidden abstract block -->
+      <div class="abstract hidden">
+        <p>Current video understanding models rely on fixed frame sampling strategies, processing predetermined visual inputs regardless of the specific reasoning requirements of each question. This static approach limits their ability to adaptively gather visual evidence, leading to suboptimal performance on tasks that require either broad temporal coverage or fine-grained spatial detail. In this paper, we introduce FrameMind, an end-to-end framework trained with reinforcement learning that enables models to dynamically request visual information during reasoning through Frame-Interleaved Chain-of-Thought (FiCOT). Unlike traditional approaches, FrameMind operates in multiple turns where the model alternates between textual reasoning and active visual perception, using tools to extract targeted frames or video clips based on identified knowledge gaps. To train effective dynamic sampling policies, we propose Dynamic Resolution Frame Sampling (DRFS), which exposes models to diverse temporal-spatial trade-offs during learning, and DRFS-GRPO, a group-relative policy optimization algorithm that learns from outcome-based rewards without requiring frame-level annotations. Extensive experiments on challenging benchmarks like MLVU and VideoMME demonstrate that our method significantly outperforms existing models, advancing the state of the art in flexible and efficient video understanding.</p>
+      </div>
+    
+
+    
+
+    
+  </div>
+</div>
+</li>
 <li>
 <div class="row">
   
