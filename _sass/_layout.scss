@@ -1481,6 +1481,12 @@ html.motion .post-home {
 
 // Hand-drawn robots: ink outlines on paper fill, gold indicator lights. Each part loops on
 // its own (legs, antenna, eyes, body), and a shared SVG filter makes the lines wobble.
+// The script adds the robots only once it can see --hm-css, so a page never shows them
+// unstyled next to an older cached stylesheet.
+:root {
+  --hm-css: 1;
+}
+
 .hm-defs {
   position: absolute;
   width: 0;

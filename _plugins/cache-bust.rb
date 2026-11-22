@@ -42,8 +42,10 @@ module Jekyll
       CacheDigester.new(file_name: file_name, directory: nil).digest!
     end
 
+    # The stylesheet is compiled from the partials in _sass, so hash those: the URL then
+    # changes whenever any style changes, and browsers never pair new pages with old CSS.
     def bust_css_cache(file_name)
-      CacheDigester.new(file_name: file_name, directory: 'assets/_sass').digest!
+      CacheDigester.new(file_name: file_name, directory: '_sass').digest!
     end
   end
 end

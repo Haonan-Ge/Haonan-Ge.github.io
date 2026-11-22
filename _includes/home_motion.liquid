@@ -39,6 +39,7 @@
     //    the note card. Their outlines wobble slightly, like frames of a hand-drawn
     //    animation, through one shared SVG filter. Everything pauses while off screen.
     function setUpDoodles() {
+      if (getComputedStyle(root).getPropertyValue("--hm-css").trim() !== "1") return;
       const profile = document.querySelector(".post-home .profile");
       const note = document.querySelector(".post-home .home-note");
       if (!profile && !note) return;
