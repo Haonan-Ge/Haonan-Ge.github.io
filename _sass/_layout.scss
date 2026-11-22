@@ -1873,6 +1873,8 @@ html.motion .post-home .home-note {
   > div {
     display: flex;
     flex-direction: column;
+    // Lets the keyword row size itself to the card (see .interest-tags).
+    container-type: inline-size;
   }
 
   .interest-meta {
@@ -1912,26 +1914,22 @@ html.motion .post-home .home-note {
     line-height: 1.3;
   }
 
-  .interest-q {
-    margin: 0 0 0.6rem;
-    font-family: var(--home-serif);
-    font-style: italic;
-    font-size: 1rem;
-    line-height: 1.45;
-  }
-
   .interest-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem;
+    gap: 0.3rem;
     margin-top: auto;
     padding-top: 0.95rem;
 
+    // The keywords stay on one line: the type shrinks a little on narrow cards
+    // (down to 0.5rem) before anything wraps. The divisor is the longest row,
+    // three pills and 45 monospace characters, measured in em.
     span {
-      padding: 0.18rem 0.65rem;
+      padding: 0.18rem 0.75em;
       font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-      font-size: 0.68rem;
-      letter-spacing: 0.02em;
+      font-size: 0.64rem;
+      font-size: clamp(0.5rem, calc((100cqi - 18px) / 32.4), 0.64rem);
+      white-space: nowrap;
       border: 1px solid var(--global-divider-color);
       border-radius: 999px;
     }
